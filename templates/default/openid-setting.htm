@@ -1,0 +1,33 @@
+{template header}
+<div id="nav"><a href="$indexname">$bbname</a> &raquo; {lang member_login}</div>
+
+<form method="post" name="login">
+<input type="hidden" name="formhash" value="{FORMHASH}" />
+<input type="hidden" name="referer" value="$referer" />
+<div class="mainbox formbox">
+	<span class="headactions">{faq login}</span>
+	<h1>OpenID	 设置</h1>
+	<table summary="{lang member_login}" cellspacing="0" cellpadding="0">
+		<tr>
+			<th onclick="document.login.openid_url.focus();">
+				<label>OpenID</label>
+			</th>
+			<td>
+				<input type="text" id="openid_url" name="openid_url" size="25" tabindex="4"
+					style="background: url(http://www.openid.net/login-bg.gif) no-repeat; background-position: 0 50%; padding-left: 18px;" />
+				<a href="http://openid.org.cn/">获取一个 OpenID</a>
+			</td>
+		</tr>
+		<tr>
+			<th>&nbsp;</th>
+			<td><button class="submit" type="submit" name="loginsubmit" value="true" tabindex="100">{lang submit}</button></td>
+		</tr>
+	</table>
+</div>
+</form>
+
+<script type="text/javascript">
+document.getElementById("openid_url").focus();
+</script>
+
+{template footer}
