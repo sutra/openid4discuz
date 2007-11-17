@@ -2,6 +2,7 @@
 date=`date +%Y-%m-%d`
 mkdir build
 tar jcfv build/openid4discuz-1.0.0-$date.tar.bz2 \
+	build.sh \
 	README.txt \
 	LICENSE.txt \
 	INSTALL.txt \
