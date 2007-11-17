@@ -3,6 +3,7 @@ if (!$discuz_uid) {
 	showmessage('请您登陆后访问本站，现在将转入登录页面。', 'logging.php?action=login');
 }
 
+require_once DISCUZ_ROOT.'./plugins/openid/openid.func.php';
 require_once DISCUZ_ROOT . './plugins/openid/class.openid.php';
 
 $this_url = 'plugin.php?identifier=openid4discuz&module=openidsetting';
@@ -24,13 +25,13 @@ elseif ($_POST['formhash'] != '' && $_POST['openid_url'] != '') {
 	$openid->SetIdentity($openid_url);
 	$openid->SetTrustRoot('http://' . $_SERVER["HTTP_HOST"]);
 	if ($openid->GetOpenIDServer()) {
-		$openid->SetApprovedURL('http://' . $_SERVER["HTTP_HOST"] . $_SERVER["PHP_SELF"] . '?identifier=openid4discuz&module=openidsetting' . $_SERVER["PATH_INFO"]); // Send Response from OpenID server to this script
+		$openid->SetApprovedURL(getUrl()); // Send Response from OpenID server to this script
 		$openid->Redirect(); // This will redirect user to OpenID Server
-		function_exists('dexit') ? dexit() : exit ();
 	} else {
 		$error = $openid->GetError();
 		showmessage($error['description'] . "(" . $error['code'] . ")", $this_url);
 	}
+	exit;
 }
 elseif ($_GET['openid_mode'] == 'id_res') {
 	// Perform HTTP Request to OpenID server to validate key
