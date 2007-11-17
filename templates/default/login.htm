@@ -6,6 +6,10 @@ function setOpenIdLogin(isOpenIdLogin) {
 	document.getElementById("username").style.display = (isOpenIdLogin ? "none" : "inline");
 	document.getElementById("openid_url").style.display = (isOpenIdLogin ? "inline" : "none");
 	document.getElementById("password").disabled = isOpenIdLogin;
+	document.getElementById("password").style.backgroundColor = isOpenIdLogin ? '#eee' : '';
+	document.getElementById("questionid").disabled = isOpenIdLogin;
+	document.getElementById("answer").disabled = isOpenIdLogin;
+	document.getElementById("answer").style.backgroundColor = isOpenIdLogin ? '#eee' : '';
 	
 	if (isOpenIdLogin) {
 		document.getElementById("openid_url").focus();
