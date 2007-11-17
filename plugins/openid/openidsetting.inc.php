@@ -3,7 +3,7 @@ if (!$discuz_uid) {
 	showmessage('请您登陆后访问本站，现在将转入登录页面。', 'logging.php?action=login');
 }
 
-require_once DISCUZ_ROOT.'./plugins/openid/openid.func.php';
+require_once DISCUZ_ROOT . './plugins/openid/openid.func.php';
 require_once DISCUZ_ROOT . './plugins/openid/class.openid.php';
 
 $this_url = 'plugin.php?identifier=openid4discuz&module=openidsetting';
@@ -20,6 +20,12 @@ if ($_POST['formhash'] != '' && $_POST['openid_url'] == '') {
 	}
 }
 elseif ($_POST['formhash'] != '' && $_POST['openid_url'] != '') {
+	// echo $_POST['openid_url'];
+	$query = $db->query("SELECT openid_url FROM {$tablepre}openid WHERE openid_url='" . $_POST['openid_url'] . "'");
+	$member_openid = $db->fetch_array($query);
+	if ($member_openid['openid_url']) {
+		showmessage("你输入的 OpenID 已与另一个账号绑定。", $this_url);
+	}
 	// Redirect user to OpenID Server
 	$openid = new SimpleOpenID;
 	$openid->SetIdentity($openid_url);
@@ -39,6 +45,12 @@ elseif ($_GET['openid_mode'] == 'id_res') {
 	$openid->SetIdentity($_GET['openid_identity']);
 	$openid_validation_result = $openid->ValidateWithServer();
 	if ($openid_validation_result == true) { // OK HERE KEY IS VALID
+		$query = $db->query("SELECT openid_url FROM {$tablepre}openid WHERE openid_url='" . $openid->GetIdentity() . "'");
+		$member_openid = $db->fetch_array($query);
+		if ($member_openid['openid_url']) {
+			showmessage("你输入的 OpenID 已与另一个账号绑定。", $this_url);
+		}
+
 		$query = $db->query("SELECT openid_url FROM {$tablepre}openid WHERE uid=" . $discuz_uid);
 		$old_openid = $db->fetch_array($query);
 		if (!$old_openid['openid_url']) {
