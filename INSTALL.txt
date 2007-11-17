@@ -1,0 +1,4 @@
+Backup your orginal file: templates/default/login.htm
+Upload openid.php, plugins/openid/*, templates/default/*
+Import discuz_plugin_openid4discuz.txt through the admin control panel.
+Add table to your database by openid4discuz.sql or by openid-install.php
