@@ -5,6 +5,8 @@ define('CURSCRIPT', 'logging');
 require_once './include/common.inc.php';
 require_once DISCUZ_ROOT . './include/misc.func.php';
 
+include_once language('openid');
+
 require_once DISCUZ_ROOT . './plugins/openid/openid.func.php';
 require_once DISCUZ_ROOT . './plugins/openid/class.openid.php';
 
@@ -20,14 +22,14 @@ if ($_GET['openid_mode'] == 'id_res') { // Perform HTTP Request to OpenID server
 		$member_openid = $db->fetch_array($query);
 		// echo $member_openid['uid'];
 		if (!$member_openid['uid']) {
-			showmessage('你的 OpenID	(<a href="' . $openid->GetIdentity() . '">' . $openid->GetIdentity() . '</a>)尚未和论坛账号绑定。', $login_page);
+			showmessage($GLOBALS['language']['openid_no_bind_before'] . '<a href="' . $openid->GetIdentity() . '">' . $openid->GetIdentity() . '</a>' . $GLOBALS['language']['openid_no_bind_after'], $login_page);
 		} else {
 			$uid = $member_openid['uid'];
 			// set login start
 			$query = $db->query("SELECT m.uid AS discuz_uid, m.username AS discuz_user, m.password AS discuz_pw, m.secques AS discuz_secques,
-										m.adminid, m.groupid, m.styleid AS styleidmem, m.lastvisit, m.lastpost, u.allowinvisible
-										FROM {$tablepre}members m LEFT JOIN {$tablepre}usergroups u USING (groupid)
-										WHERE m.uid='" . $uid . "'");
+													m.adminid, m.groupid, m.styleid AS styleidmem, m.lastvisit, m.lastpost, u.allowinvisible
+													FROM {$tablepre}members m LEFT JOIN {$tablepre}usergroups u USING (groupid)
+													WHERE m.uid='" . $uid . "'");
 			$member = $db->fetch_array($query);
 
 			if ($member['discuz_uid']) {
