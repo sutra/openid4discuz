@@ -1,6 +1,6 @@
 # Discuz! Plugin Dump
 # Version: Discuz! 6.0.0
-# Time: 2007-11-18 04:58  
+# Time: 2007-11-18 21:59  
 # From: Discuz! Board (http://localhost/discuz/) 
 #
 # Discuz! Community: http://www.Discuz.net
@@ -16,8 +16,8 @@ dXohIjtzOjEwOiJkYXRhdGFibGVzIjtzOjY6Im9wZW5pZCI7czo5OiJkaXJl
 Y3RvcnkiO3M6Nzoib3BlbmlkLyI7czo5OiJjb3B5cmlnaHQiO3M6Nzc6IkNv
 cHlyaWdodCAmY29weTsgJmx0O2EgaHJlZj0mcXVvdDtodHRwOi8vcmVkdi5j
 b20mcXVvdDsmZ3Q7UmVkdi5jb20mbHQ7L2EmZ3Q7IjtzOjc6Im1vZHVsZXMi
-O3M6MTQ1OiJhOjE6e2k6MDthOjU6e3M6NDoibmFtZSI7czoxMzoib3Blbmlk
-c2V0dGluZyI7czo0OiJtZW51IjtzOjEzOiJPcGVuSUQg6K6+572uIjtzOjQ6
-InR5cGUiO3M6MToiMiI7czo3OiJhZG1pbmlkIjtzOjE6IjAiO3M6MTI6ImRp
-c3BsYXlvcmRlciI7aTowO319Ijt9czo3OiJ2ZXJzaW9uIjtzOjU6IjYuMC4w
-Ijt9
+O3M6MTQ3OiJhOjE6e2k6MDthOjU6e3M6NDoibmFtZSI7czoxNDoib3Blbmlk
+X3NldHRpbmciO3M6NDoibWVudSI7czoxNDoiT3BlbklEIFNldHRpbmciO3M6
+NDoidHlwZSI7czoxOiIyIjtzOjc6ImFkbWluaWQiO3M6MToiMCI7czoxMjoi
+ZGlzcGxheW9yZGVyIjtpOjA7fX0iO31zOjc6InZlcnNpb24iO3M6NToiNi4w
+LjAiO30=
