@@ -1,4 +1,4 @@
-Backup your orginal file: templates/default/login.htm
-Upload openid.php, plugins/openid/*, templates/default/*
-Import discuz_plugin_openid4discuz.txt through the admin control panel.
-Add table to your database by openid4discuz.sql or by openid-install.php
+1.备份你的论坛的原始文件： templates/default/login.htm
+2.上传 openid.php，openid-install.php， plugins/openid/*， templates/default/*
+3.用管理员登录在论坛的后台的插件管理里面导入： discuz_plugin_openid4discuz.txt
+4.通过 openid_install.php 添加表（表名是论坛表前缀_openid）到你的论坛数据库

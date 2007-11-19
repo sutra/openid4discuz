@@ -1,7 +1,7 @@
 #!/bin/sh
 rm -rf build
 date=`date +%Y-%m-%d`
-VERSION="1.0.0"
+VERSION="0.1.0"
 mkdir build
 tar jcfv build/openid4discuz-UTF-8-$VERSION-$date.tar.bz2 \
 	build.sh \
