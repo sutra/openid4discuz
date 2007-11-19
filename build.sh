@@ -1,9 +1,9 @@
 #!/bin/sh
 rm -rf build
 date=`date +%Y-%m-%d`
-VERSION="0.1.0"
+VERSION="0.1.0"-$date
 mkdir build
-tar jcfv build/openid4discuz-UTF-8-$VERSION-$date.tar.bz2 \
+tar jcfv build/openid4discuz-$VERSION-UTF-8.tar.bz2 \
 	build.sh \
 	README.txt \
 	LICENSE.txt \
@@ -18,12 +18,13 @@ tar jcfv build/openid4discuz-UTF-8-$VERSION-$date.tar.bz2 \
 	templates/default/openid_setting.htm \
 	templates/default/openid_setting.lang.php \
 	templates/default/login.htm
-mkdir build/openid4discuz-GBK-$VERSION-$date
-tar xvf build/openid4discuz-UTF-8-$VERSION-$date.tar.bz2 -C build/openid4discuz-GBK-$VERSION-$date
-iconv -f UTF-8 -t GBK build/openid4discuz-GBK-$VERSION-$date/templates/default/openid.lang.php > build/openid4discuz-GBK-$VERSION-$date/templates/default/openid.lang.php.tmp
-mv build/openid4discuz-GBK-$VERSION-$date/templates/default/openid.lang.php.tmp build/openid4discuz-GBK-$VERSION-$date/templates/default/openid.lang.php
-iconv -f UTF-8 -t GBK build/openid4discuz-GBK-$VERSION-$date/templates/default/openid_install.lang.php > build/openid4discuz-GBK-$VERSION-$date/templates/default/openid_install.lang.php.tmp
-mv build/openid4discuz-GBK-$VERSION-$date/templates/default/openid_install.lang.php.tmp build/openid4discuz-GBK-$VERSION-$date/templates/default/openid_install.lang.php
-iconv -f UTF-8 -t GBK build/openid4discuz-GBK-$VERSION-$date/templates/default/openid_setting.lang.php > build/openid4discuz-GBK-$VERSION-$date/templates/default/openid_setting.lang.php.tmp
-build/openid4discuz-GBK-$VERSION-$date/templates/default/openid_setting.lang.php.tmp build/openid4discuz-GBK-$VERSION-$date/templates/default/openid_setting.lang.php
-tar jcfv build/openid4discuz-GBK-1.0.0-$date.tar.bz2 build/openid4discuz-GBK-$VERSION-$date/*
+mkdir build/openid4discuz-$VERSION-GBK
+tar xvf build/openid4discuz-$VERSION-UTF-8.tar.bz2 -C build/openid4discuz-$VERSION-GBK
+iconv -f UTF-8 -t GBK build/openid4discuz-$VERSION-GBK/templates/default/openid.lang.php > build/openid4discuz-$VERSION-GBK/templates/default/openid.lang.php.tmp
+mv build/openid4discuz-$VERSION-GBK/templates/default/openid.lang.php.tmp build/openid4discuz-$VERSION-GBK/templates/default/openid.lang.php
+iconv -f UTF-8 -t GBK build/openid4discuz-$VERSION-GBK/templates/default/openid_install.lang.php > build/openid4discuz-$VERSION-GBK/templates/default/openid_install.lang.php.tmp
+mv build/openid4discuz-$VERSION-GBK/templates/default/openid_install.lang.php.tmp build/openid4discuz-$VERSION-GBK/templates/default/openid_install.lang.php
+iconv -f UTF-8 -t GBK build/openid4discuz-$VERSION-GBK/templates/default/openid_setting.lang.php > build/openid4discuz-$VERSION-GBK/templates/default/openid_setting.lang.php.tmp
+build/openid4discuz-$VERSION-GBK/templates/default/openid_setting.lang.php.tmp build/openid4discuz-$VERSION-GBK/templates/default/openid_setting.lang.php
+cd build/openid4discuz-$VERSION-GBK
+tar jcfv ../openid4discuz-$VERSION-GBK.tar.bz2 *
