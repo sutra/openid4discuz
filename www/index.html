@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>OpenID for Discuz! -
+			http://openid4discuz.redv.com</title>
+		<meta http-equiv="Content-Type"
+			content="application/xhtml+xml; charset=UTF-8" />
+		<meta content="all" name="robots" />
+		<meta name="keywords" content="OpenID,Discuz!,php" />
+		<meta name="description" content="OpenID enabled for Discuz!" />
+		<link rel="icon" href="/favicon.ico" type="image/x-icon" />
+		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+		<link rel="stylesheet" type="text/css" media="screen" href="http://redv.com/index.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="index.css" />
+	</head>
+	<body>
+		<div>
+			<div id="header">
+				<h1>
+					OpenID for Discuz!
+				</h1>
+				<div class="slogan">
+					让你的 Discuz! 论坛能使用 OpenID 登录。
+				</div>
+			</div>
+			<div id="content">
+				<div>
+					<h2>
+						特性
+					</h2>
+					<ul>
+						<li>允许论坛已有帐号与 <a href="http://openid.net.cn">OpenID</a> URL 建立一对一绑定，绑定后用户既可以用原有的用户名或者UID方式登录，也可以通过已绑定的 OpenID 来登录；</li>
+						<li>允许修改或者解除帐号和 <a href="http://openid.net.cn">OpenID</a> URL 之间的绑定；</li>
+						<li>无需注册论坛帐号，即可通过 <a href="http://openid.net.cn">OpenID</a> 直接登录论坛（计划中，如果本插件有人欢迎~~）。</li>
+					</ul>
+				</div>
+				<div>
+					<h2>
+						兼容版本
+					</h2>
+					<ul>
+						<li>支持 <a href="http://www.discuz.com/">Discuz!</a> GBK/UTF-8 6.0.0 版；</li>
+						<li>其它版本可能也支持，但未经过测试。</li>
+					</ul>
+				</div>
+				<div>
+					<h2>
+						安装
+					</h2>
+					<ol>
+						<li>备份你的论坛的原始文件： templates/default/login.htm；</li>
+						<li>上传 openid.php，openid-install.php， plugins/openid/*， templates/default/*；</li>
+						<li>用管理员登录，在论坛的后台的“插件管理”里面导入： discuz_plugin_openid4discuz.txt；</li>
+						<li>通过 openid_install.php 添加表（表名是论坛表前缀_openid）到你的论坛数据库。</li>
+					</ol>
+				</div>
+				<div>
+					<h2>
+						卸载
+					</h2>
+					<ol>
+						<li>从备份中还原你的论坛的原始文件： templates/default/login.htm；</li>
+						<li>删除 openid.php，openid-install.php， plugins/openid/*， templates/default/*；</li>
+						<li>用管理员登录，在论坛的后台的“插件管理”里面删除唯一标识符为 openid4discuz 的插件；</li>
+						<li>删除表（表名是论坛表前缀_openid），不建议。</li>
+					</ol>
+				</div>
+				<div>
+					<h2>
+						下载
+					</h2>
+					<ol>
+						<li><a href="download/">本地下载</a></li>
+					</ol>
+				</div>
+			</div>
+			<div id="copyright">
+				Copyright © 2001-2007 Redv.com. All rights reserved.
+			</div>
+			<div id="poweredby">
+				<em>Powered by <a href="http://zhoushuqun.com">♨Sutra</a>.</em>
+			</div>
+		</div>
+	</body>
+</html>

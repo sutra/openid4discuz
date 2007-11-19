@@ -1,0 +1,24 @@
+div#content {
+	margin: 20px;;
+	font-size: 14px;
+}
+
+a:link {
+	text-decoration: none;
+	color: #0066cc;
+}
+
+a:visited {
+	text-decoration: none;
+	color: #0066cc;
+}
+
+a:hover {
+	text-decoration: underline;
+	color: #ff5600;
+}
+
+a:active {
+	text-decoration: underline;
+	background-color: yellow;
+}
