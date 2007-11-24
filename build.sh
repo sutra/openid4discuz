@@ -17,7 +17,10 @@ tar jcfv build/openid4discuz-$VERSION-UTF-8.tar.bz2 \
 	templates/default/openid_install.lang.php \
 	templates/default/openid_setting.htm \
 	templates/default/openid_setting.lang.php \
-	templates/default/login.htm
+	register.php \
+	templates/default/login.htm \
+	templates/default/register.htm
+
 mkdir build/openid4discuz-$VERSION-GBK
 tar xvf build/openid4discuz-$VERSION-UTF-8.tar.bz2 -C build/openid4discuz-$VERSION-GBK
 iconv -f UTF-8 -t GBK build/openid4discuz-$VERSION-GBK/templates/default/openid.lang.php > build/openid4discuz-$VERSION-GBK/templates/default/openid.lang.php.tmp

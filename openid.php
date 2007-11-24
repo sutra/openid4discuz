@@ -12,6 +12,7 @@ require_once DISCUZ_ROOT . './plugins/openid/class.openid.php';
 
 $this_url = "openid.php";
 $login_page = "logging.php?action=login";
+$register_page = "register.php";
 
 if ($_GET['openid_mode'] == 'id_res') { // Perform HTTP Request to OpenID server to validate key
 	$openid = new SimpleOpenID;
@@ -22,7 +23,11 @@ if ($_GET['openid_mode'] == 'id_res') { // Perform HTTP Request to OpenID server
 		$member_openid = $db->fetch_array($query);
 		// echo $member_openid['uid'];
 		if (!$member_openid['uid']) {
-			showmessage($GLOBALS['language']['openid_no_bind_before'] . '<a href="' . $openid->GetIdentity() . '">' . $openid->GetIdentity() . '</a>' . $GLOBALS['language']['openid_no_bind_after'], $login_page);
+			$db->query("DELETE FROM {$tablepre}openid_sessions WHERE sid = '".$_COOKIE[$cookiepre.'sid']."'");
+			$db->query("INSERT INTO {$tablepre}openid_sessions(sid, openid_url) VALUES('".$_COOKIE[$cookiepre.'sid']."', '".$openid->GetIdentity()."')");
+			setcookie('openid_sreg_nichname', $_GET['openid_sreg_nickname']);
+			setcookie('openid_sreg_email', $_GET['openid_sreg_email']);
+			showmessage($GLOBALS['language']['openid_no_bind_before'] . '<a href="' . $openid->GetIdentity() . '">' . $openid->GetIdentity() . '</a>' . $GLOBALS['language']['openid_no_bind_after'], $register_page);
 		} else {
 			$uid = $member_openid['uid'];
 			// set login start
@@ -85,6 +90,8 @@ if ($_GET['openid_mode'] == 'id_res') { // Perform HTTP Request to OpenID server
 		$openid = new SimpleOpenID;
 		$openid->SetIdentity($openid_url);
 		$openid->SetTrustRoot('http://' . $_SERVER["HTTP_HOST"]);
+		$openid->SetRequiredFields(array('nickname', 'email'));
+		$openid->SetOptionalFields(array('gender', 'dob', 'timezone'));
 		if ($openid->GetOpenIDServer()) {
 			$openid->SetApprovedURL(getUrl()); // Send Response from OpenID server to this script
 			$openid->Redirect(); // This will redirect user to OpenID Server
