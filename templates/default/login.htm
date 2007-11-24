@@ -17,7 +17,9 @@ function setOpenIdLogin(isOpenIdLogin) {
 		document.getElementById("username").focus();
 	}
 
-	setCookie("loginfield_openid", isOpenIdLogin, new Date());
+	var expires = new Date();
+	expires.setTime (expires.getTime() + 365 * (24 * 60 * 60 * 1000)); //+365 day
+	setCookie("loginfield_openid", isOpenIdLogin, expires);
 }
 </script>
 
