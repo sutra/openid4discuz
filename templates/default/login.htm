@@ -1,7 +1,11 @@
 {template header}
 <div id="nav"><a href="$indexname">$bbname</a> &raquo; {lang member_login}</div>
 
+<script type="text/javascript" src="plugins/openid/cookie.js"></script>
 <script type="text/javascript">
+var expires = new Date();
+expires.setTime (expires.getTime() + 365 * (24 * 60 * 60 * 1000)); //+365 day
+
 function setOpenIdLogin(isOpenIdLogin) {
 	document.getElementById("username").style.display = (isOpenIdLogin ? "none" : "inline");
 	document.getElementById("openid_url").style.display = (isOpenIdLogin ? "inline" : "none");
@@ -17,13 +21,15 @@ function setOpenIdLogin(isOpenIdLogin) {
 		document.getElementById("username").focus();
 	}
 
-	var expires = new Date();
-	expires.setTime (expires.getTime() + 365 * (24 * 60 * 60 * 1000)); //+365 day
 	setCookie("loginfield_openid", isOpenIdLogin, expires);
+}
+
+function submitLogin() {
+	setCookie("openid_url", document.getElementById("openid_url").value, expires);
 }
 </script>
 
-<form method="post" name="login" action="logging.php?action=login&amp;">
+<form method="post" name="login" action="logging.php?action=login&amp;" onsubmit="submitLogin()">
 <input type="hidden" name="formhash" value="{FORMHASH}" />
 <input type="hidden" name="referer" value="$referer" />
 <div class="mainbox formbox">
@@ -118,12 +124,11 @@ function setOpenIdLogin(isOpenIdLogin) {
 </div>
 </form>
 
-<script type="text/javascript" src="plugins/openid/cookie.js"></script>
 <script type="text/javascript">
+document.getElementById("openid_url").value = getCookie("openid_url");
 if (getCookie("loginfield_openid") == "true") {
 	document.getElementById("loginfield_openid").checked = true;
 }
-
 setOpenIdLogin(document.getElementById("loginfield_openid").checked);
 if (document.getElementById("loginfield_openid").checked) {
 	document.login.openid_url.focus();
