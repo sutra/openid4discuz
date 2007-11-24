@@ -1,15 +1,18 @@
 #!/bin/sh
+PROJECT=openid4discuz
 baseDirForScriptSelf=$(cd "$(dirname "$0")"; pwd)
 BUILD=${baseDirForScriptSelf}/build
 DATE=`date +%Y-%m-%d`
 VERSION="0.1.0"-$DATE
-PKG_UTF8=${BUILD}/openid4discuz-$VERSION-UTF-8.tar.bz2
-PKG_GBK=${BUILD}/openid4discuz-$VERSION-GBK.tar.bz2
-# WORK_UTF8=${BUILD}/openid4discuz-$VERSION-UTF-8
-WORK_GBK=${BUILD}/openid4discuz-$VERSION-GBK
 
-rm -rf ${BUILD}
-mkdir ${BUILD}
+PKG_UTF8=$BUILD/$PROJECT-$VERSION-UTF-8.tar.bz2
+PKG_GBK=$BUILD/$PROJECT-$VERSION-GBK.tar.bz2
+
+WORK_DIR=$BUILD/$PROJECT-$VERSION
+
+rm -rf $BUILD
+mkdir $BUILD
+mkdir $WORK_DIR
 
 # UTF-8
 tar jcfv $PKG_UTF8									\
@@ -36,10 +39,12 @@ tar jcfv $PKG_UTF8									\
 	templates/default/login.htm						\
 	templates/default/register.htm
 
-# GBK
-mkdir ${WORK_GBK}
-tar xvf ${PKG_UTF8} -C ${WORK_GBK}
+tar xvf ${PKG_UTF8} -C ${WORK_DIR}
+rm $PKG_UTF8
+cd ${BUILD}
+tar jcfv ${PKG_UTF8} $PROJECT-$VERSION
 
+# GBK
 foreachd(){
 for file in $1/*
 do
@@ -54,7 +59,7 @@ do
 done
 }
 
-foreachd ${WORK_GBK}
+foreachd ${WORK_DIR}
 
-cd ${WORK_GBK}
-tar jcfv ${PKG_GBK} *
+cd ${BUILD}
+tar jcfv ${PKG_GBK} $PROJECT-$VERSION
