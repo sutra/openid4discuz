@@ -5,8 +5,8 @@ BUILD=${baseDirForScriptSelf}/build
 DATE=`date +%Y-%m-%d`
 VERSION="0.1.0"-$DATE
 
-PKG_UTF8=$BUILD/$PROJECT-$VERSION-UTF-8.tar.bz2
-PKG_GBK=$BUILD/$PROJECT-$VERSION-GBK.tar.bz2
+PKG_UTF8=$BUILD/$PROJECT-$VERSION-UTF-8.tar.gz
+PKG_GBK=$BUILD/$PROJECT-$VERSION-GBK.tar.gz
 
 WORK_DIR=$BUILD/$PROJECT-$VERSION
 
@@ -14,8 +14,7 @@ rm -rf $BUILD
 mkdir $BUILD
 mkdir $WORK_DIR
 
-# UTF-8
-tar jcfv $PKG_UTF8									\
+tar cfv $WORK_DIR.tar								\
 	build.sh										\
 	README.txt										\
 	LICENSE.txt										\
@@ -39,18 +38,20 @@ tar jcfv $PKG_UTF8									\
 	templates/default/login.htm						\
 	templates/default/register.htm
 
-tar xvf ${PKG_UTF8} -C ${WORK_DIR}
-rm $PKG_UTF8
+tar xvf $WORK_DIR.tar -C ${WORK_DIR}
+
+# UTF-8
 cd ${BUILD}
-tar jcfv ${PKG_UTF8} $PROJECT-$VERSION
+cp -R ${WORK_DIR} ${WORK_DIR}-UTF-8
+tar czfv ${PKG_UTF8} $PROJECT-$VERSION-UTF-8
 
 # GBK
-foreachd(){
+foreach_dir_iconv(){
 for file in $1/*
 do
 	if [ -d $file ]
 	then
-		foreachd $file
+		foreach_dir_iconv $file
 	elif [ -f $file ]
 	then
 		iconv -f UTF-8 -t GBK $file > $file.tmp
@@ -59,7 +60,7 @@ do
 done
 }
 
-foreachd ${WORK_DIR}
-
 cd ${BUILD}
-tar jcfv ${PKG_GBK} $PROJECT-$VERSION
+cp -R ${WORK_DIR} ${WORK_DIR}-GBK
+foreach_dir_iconv ${WORK_DIR}-GBK
+tar czfv ${PKG_GBK} $PROJECT-$VERSION-GBK
