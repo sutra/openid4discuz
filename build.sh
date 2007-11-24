@@ -12,9 +12,11 @@ WORK_DIR=$BUILD/$PROJECT-$VERSION
 
 rm -rf $BUILD
 mkdir $BUILD
-mkdir $WORK_DIR
 
-tar cfv $WORK_DIR.tar								\
+# Copy files
+mkdir ${WORK_DIR}
+
+tar cfv ${WORK_DIR}.tar								\
 	build.sh										\
 	README.txt										\
 	LICENSE.txt										\
@@ -38,10 +40,10 @@ tar cfv $WORK_DIR.tar								\
 	templates/default/login.htm						\
 	templates/default/register.htm
 
-tar xvf $WORK_DIR.tar -C ${WORK_DIR}
+tar xvf ${WORK_DIR}.tar -C ${WORK_DIR}
 
 # UTF-8
-cd ${BUILD}
+cd $BUILD
 cp -R ${WORK_DIR} ${WORK_DIR}-UTF-8
 tar czfv ${PKG_UTF8} $PROJECT-$VERSION-UTF-8
 
@@ -60,7 +62,7 @@ do
 done
 }
 
-cd ${BUILD}
+cd $BUILD
 cp -R ${WORK_DIR} ${WORK_DIR}-GBK
 foreach_dir_iconv ${WORK_DIR}-GBK
 tar czfv ${PKG_GBK} $PROJECT-$VERSION-GBK
