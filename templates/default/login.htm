@@ -17,7 +17,7 @@ function setOpenIdLogin(isOpenIdLogin) {
 		document.getElementById("username").focus();
 	}
 
-	setCookie("loginfield_openid", isOpenIdLogin);
+	setCookie("loginfield_openid", isOpenIdLogin, new Date());
 }
 </script>
 
