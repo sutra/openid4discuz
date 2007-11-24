@@ -16,6 +16,8 @@ function setOpenIdLogin(isOpenIdLogin) {
 	} else {
 		document.getElementById("username").focus();
 	}
+
+	setCookie("loginfield_openid", isOpenIdLogin);
 }
 </script>
 
@@ -114,7 +116,12 @@ function setOpenIdLogin(isOpenIdLogin) {
 </div>
 </form>
 
+<script type="text/javascript" src="plugins/openid/cookie.js"></script>
 <script type="text/javascript">
+if (getCookie("loginfield_openid") == "true") {
+	document.getElementById("loginfield_openid").checked = true;
+}
+
 setOpenIdLogin(document.getElementById("loginfield_openid").checked);
 if (document.getElementById("loginfield_openid").checked) {
 	document.login.openid_url.focus();
