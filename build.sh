@@ -10,6 +10,8 @@ WORK_GBK=	${BUILD}/openid4discuz-$VERSION-GBK
 
 rm -rf ${BUILD}
 mkdir ${BUILD}
+
+# UTF-8
 tar jcfv $PKG_UTF8									\
 	build.sh										\
 	README.txt										\
@@ -34,20 +36,25 @@ tar jcfv $PKG_UTF8									\
 	templates/default/login.htm						\
 	templates/default/register.htm
 
+# GBK
 mkdir ${WORK_GBK}
 tar xvf ${PKG_UTF8} -C ${WORK_UTF8}
 
-iconv -f UTF-8 -t GBK \
-	${WORK_UTF8}/templates/default/openid.lang.php > \
-	${WORK_GBK}/templates/default/openid.lang.php
+foreachd(){
+for file in $1/*
+do
+	if [ -d $file ]
+	then
+		foreachd $file
+	elif [ -f $file ]
+	then
+		iconv -f UTF-8 -t GBK $file > $file.tmp
+		mv $file.tmp $file
+	fi
+done
+}
 
-iconv -f UTF-8 -t GBK \
-	${WORK_UTF8}/templates/default/openid_install.lang.php > \
-	${WORK_GBK}/templates/default/openid_install.lang.php
-
-iconv -f UTF-8 -t GBK \
-	${WORK_UTF8}/templates/default/openid_setting.lang.php > \
-	${WORK_UTF8}/templates/default/openid_setting.lang.php
+foreachd ${WORK_GBK}
 
 cd ${WORK_GBK}
 tar jcfv ${PKG_GBK} *
