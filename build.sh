@@ -5,7 +5,7 @@ DATE=`date +%Y-%m-%d`
 VERSION="0.1.0"-$DATE
 PKG_UTF8=${BUILD}/openid4discuz-$VERSION-UTF-8.tar.bz2
 PKG_GBK=${BUILD}/openid4discuz-$VERSION-GBK.tar.bz2
-WORK_UTF8=${BUILD}/openid4discuz-$VERSION-UTF-8
+# WORK_UTF8=${BUILD}/openid4discuz-$VERSION-UTF-8
 WORK_GBK=${BUILD}/openid4discuz-$VERSION-GBK
 
 rm -rf ${BUILD}
@@ -38,7 +38,7 @@ tar jcfv $PKG_UTF8									\
 
 # GBK
 mkdir ${WORK_GBK}
-tar xvf ${PKG_UTF8} -C ${WORK_UTF8}
+tar xvf ${PKG_UTF8} -C ${WORK_GBK}
 
 foreachd(){
 for file in $1/*
