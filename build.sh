@@ -1,12 +1,12 @@
 #!/bin/sh
 baseDirForScriptSelf=$(cd "$(dirname "$0")"; pwd)
-BUILD=		${baseDirForScriptSelf}/build
-DATE=		`date +%Y-%m-%d`
-VERSION=	"0.1.0"-$DATE
-PKG_UTF8=	${BUILD}/openid4discuz-$VERSION-UTF-8.tar.bz2
-PKG_GBK=	${BUILD}/openid4discuz-$VERSION-GBK.tar.bz2
-WORK_UTF8=	${BUILD}/openid4discuz-$VERSION-UTF-8
-WORK_GBK=	${BUILD}/openid4discuz-$VERSION-GBK
+BUILD=${baseDirForScriptSelf}/build
+DATE=`date +%Y-%m-%d`
+VERSION="0.1.0"-$DATE
+PKG_UTF8=${BUILD}/openid4discuz-$VERSION-UTF-8.tar.bz2
+PKG_GBK=${BUILD}/openid4discuz-$VERSION-GBK.tar.bz2
+WORK_UTF8=${BUILD}/openid4discuz-$VERSION-UTF-8
+WORK_GBK=${BUILD}/openid4discuz-$VERSION-GBK
 
 rm -rf ${BUILD}
 mkdir ${BUILD}
