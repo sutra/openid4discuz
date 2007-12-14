@@ -28,6 +28,7 @@ tar cfv ${WORK_DIR}.tar								\
 	openid_install.php								\
 													\
 	openid.php										\
+	logging.php										\
 	plugins/openid/*								\
 													\
 	templates/default/openid.lang.php				\
