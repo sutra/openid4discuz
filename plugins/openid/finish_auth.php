@@ -7,12 +7,16 @@
 require_once "common.php";
 session_start();
 
-function gotoReg($sreg) {
+function gotoReg($openid, $sreg) {
+	global $_COOKIE, $cookiepre, $tablepre;
+
 	$db->query("DELETE FROM {$tablepre}openid_sessions WHERE sid = '".$_COOKIE[$cookiepre.'sid']."'");
-	$db->query("INSERT INTO {$tablepre}openid_sessions(sid, openid_url) VALUES('".$_COOKIE[$cookiepre.'sid']."', '".$openid->GetIdentity()."')");
-	setcookie('openid_sreg_nichname', $_GET['openid_sreg_nickname']);
-	setcookie('openid_sreg_email', $_GET['openid_sreg_email']);
-	showmessage($GLOBALS['language']['openid_no_bind_before'] . '<a href="' . $openid->GetIdentity() . '">' . $openid->GetIdentity() . '</a>' . $GLOBALS['language']['openid_no_bind_after'], $register_page);
+	$db->query("INSERT INTO {$tablepre}openid_sessions(sid, openid_url) VALUES('".$_COOKIE[$cookiepre.'sid']."', '".$openid."')");
+	setcookie('openid_sreg_nickname', $sreg['nickname']);
+	setcookie('openid_sreg_email', $sreg['email']);
+	showmessage($GLOBALS['language']['openid_no_bind_before']
+		.'<a href="'.$openid.'">'.$openid.'</a>'.$GLOBALS['language']['openid_no_bind_after'],
+		'register.php');
 }
 
 function runDiscuz($openid, $sreg) {
@@ -72,7 +76,7 @@ function run() {
 
     // Complete the authentication process using the server's
     // response.
-    $return_to = getReturnTo();
+    $return_to = getReturnTo('finish_auth');
     $response = $consumer->complete($return_to);
 
     // Check the response status.

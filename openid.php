@@ -10,6 +10,8 @@ require_once DISCUZ_ROOT.'./plugins/openid/openid.func.php';
 $action = $_GET['action'];
 if ($action == 'finish_auth') {
 	include 'plugins/openid/finish_auth.php';
+} elseif ($action == 'finish_auth_openid_setting') {
+	include 'plugins/openid/finish_openid_setting.php';
 } else {
 	if (empty($openid_identifier)) {
 		showmessage('请输入OpenID。', dreferer());

@@ -45,7 +45,7 @@ if($action == 'logout' && !empty($formhash)) {
 	
 	// OpenID4Discuz
 	if((!empty($loginsubmit) && $loginfield == 'openid')
-		|| (!empty($loginsubmit) && !empty($openid_identifier))) {
+		|| !empty($openidlogin)) {
 		// $url_forward = "openid.php?openid_identifier=".$openid_identifier;
 		// dheader("location: ".str_replace('&amp;', '&', $url_forward));
 		include 'openid.php';
