@@ -8,7 +8,7 @@ expires.setTime (expires.getTime() + 365 * (24 * 60 * 60 * 1000)); //+365 day
 
 function setOpenIdLogin(isOpenIdLogin) {
 	document.getElementById("username").style.display = (isOpenIdLogin ? "none" : "inline");
-	document.getElementById("openid_url").style.display = (isOpenIdLogin ? "inline" : "none");
+	document.getElementById("openid_identifier").style.display = (isOpenIdLogin ? "inline" : "none");
 	document.getElementById("password").disabled = isOpenIdLogin;
 	document.getElementById("password").style.backgroundColor = isOpenIdLogin ? '#eee' : '';
 	document.getElementById("questionid").disabled = isOpenIdLogin;
@@ -16,7 +16,7 @@ function setOpenIdLogin(isOpenIdLogin) {
 	document.getElementById("answer").style.backgroundColor = isOpenIdLogin ? '#eee' : '';
 	
 	if (isOpenIdLogin) {
-		document.getElementById("openid_url").focus();
+		document.getElementById("openid_identifier").focus();
 	} else {
 		document.getElementById("username").focus();
 	}
@@ -25,7 +25,7 @@ function setOpenIdLogin(isOpenIdLogin) {
 }
 
 function submitLogin() {
-	setCookie("openid_url", document.getElementById("openid_url").value, expires);
+	setCookie("openid_identifier", document.getElementById("openid_identifier").value, expires);
 }
 </script>
 
@@ -56,8 +56,8 @@ function submitLogin() {
 			</th>
 			<td>
 				<input type="text" id="username" name="username" size="25" maxlength="40" tabindex="4" />
-				<input type="text" id="openid_url" name="openid_url" size="25" tabindex="4"
-					style="display:none; background: url(http://www.openid.net/login-bg.gif) no-repeat; background-position: 0 50%; padding-left: 18px;" />
+				<input type="text" id="openid_identifier" name="openid_identifier" size="25" tabindex="4"
+					style="display:none; background: url(plugins/openid/images/login-bg.gif) no-repeat; background-position: 0 50%; padding-left: 18px;" />
 				<a href="$regname">{lang register_now}</a>
 			</td>
 		</tr>
@@ -125,13 +125,16 @@ function submitLogin() {
 </form>
 
 <script type="text/javascript">
-document.getElementById("openid_url").value = getCookie("openid_url");
+var openid_identifier_in_cookie = getCookie("openid_identifier")
+if (openid_identifier_in_cookie != null && openid_identifier_in_cookie != "") {
+	document.getElementById("openid_identifier").value = openid_identifier_in_cookie;
+}
 if (getCookie("loginfield_openid") == "true") {
 	document.getElementById("loginfield_openid").checked = true;
 }
 setOpenIdLogin(document.getElementById("loginfield_openid").checked);
 if (document.getElementById("loginfield_openid").checked) {
-	document.login.openid_url.focus();
+	document.login.openid_identifier.focus();
 } else {
 	document.login.username.focus();
 }

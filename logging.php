@@ -44,9 +44,12 @@ if($action == 'logout' && !empty($formhash)) {
 	}
 	
 	// OpenID4Discuz
-	if($loginfield == 'openid') {
-		$url_forward = "openid.php?from=1&openid_url=".$openid_url;
-		dheader("location: ".str_replace('&amp;', '&', $url_forward));
+	if((!empty($loginsubmit) && $loginfield == 'openid')
+		|| (!empty($loginsubmit) && !empty($openid_identifier))) {
+		// $url_forward = "openid.php?openid_identifier=".$openid_identifier;
+		// dheader("location: ".str_replace('&amp;', '&', $url_forward));
+		include 'openid.php';
+		dexit();
 	}
 	$field = $loginfield == 'uid' ? 'uid' : 'username';
 
