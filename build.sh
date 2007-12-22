@@ -17,6 +17,7 @@ mkdir $BUILD
 mkdir ${WORK_DIR}
 
 tar cfv ${WORK_DIR}.tar								\
+	--exclude=.svn									\
 	INSTALL.txt										\
 	LICENSE.txt										\
 	README.txt										\
