@@ -17,28 +17,24 @@ mkdir $BUILD
 mkdir ${WORK_DIR}
 
 tar cfv ${WORK_DIR}.tar								\
-	build.sh										\
-	README.txt										\
-	LICENSE.txt										\
 	INSTALL.txt										\
-													\
+	LICENSE.txt										\
+	README.txt										\
+	build.sh										\
 	discuz_plugin_openid4discuz.txt					\
-													\
-	openid_login_form_example.html					\
-	openid_install.php								\
-													\
-	openid.php										\
 	logging.php										\
+	openid.php										\
+	openid_install.php								\
+	openid_login_form_example.html					\
 	plugins/openid/*								\
-													\
+	register.php									\
+	templates/default/discuz.htm					\
+	templates/default/login.htm						\
 	templates/default/openid.lang.php				\
 	templates/default/openid_install.htm			\
 	templates/default/openid_install.lang.php		\
 	templates/default/openid_setting.htm			\
 	templates/default/openid_setting.lang.php		\
-													\
-	register.php									\
-	templates/default/login.htm						\
 	templates/default/register.htm
 
 tar xvf ${WORK_DIR}.tar -C ${WORK_DIR}
