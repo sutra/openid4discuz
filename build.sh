@@ -31,6 +31,7 @@ tar cfv ${WORK_DIR}.tar								\
 	register.php									\
 	templates/default/discuz.htm					\
 	templates/default/login.htm						\
+	templates/default/nopermission.htm				\
 	templates/default/openid.lang.php				\
 	templates/default/openid_install.htm			\
 	templates/default/openid_install.lang.php		\

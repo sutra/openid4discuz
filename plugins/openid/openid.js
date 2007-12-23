@@ -3,6 +3,9 @@ OPENID4DISCUZ_COOKIE_EXPIRES.setTime(OPENID4DISCUZ_COOKIE_EXPIRES.getTime() + 36
 
 var OPENID4DISCUZ_OPENID_IDENTIFIER_COOKIE_NAME = "openid4discuz_cookie_openid_identifier";
 
+/**
+ * Set openid textbox visiable, while user choosing using openid to login.
+ */
 function setOpenIdLogin(isOpenIdLogin) {
 	document.getElementById("username").style.display = (isOpenIdLogin ? "none" : "inline");
 	document.getElementById("openid_identifier").style.display = (isOpenIdLogin ? "inline" : "none");
@@ -21,18 +24,39 @@ function setOpenIdLogin(isOpenIdLogin) {
 	setCookie("loginfield_openid", isOpenIdLogin, OPENID4DISCUZ_COOKIE_EXPIRES);
 }
 
+/**
+ * Save openid identifier that user inputted into cookie while the login form be submmitted.
+ */
 function submitLogin() {
 	setCookie(OPENID4DISCUZ_OPENID_IDENTIFIER_COOKIE_NAME,
 		document.getElementById("openid_identifier").value, OPENID4DISCUZ_COOKIE_EXPIRES);
 }
 
+/**
+ * Set the value of the textbox as openid identifier in cookie if present.
+ */
 function setOpenIDIdentifierFromCookie() {
-	var argv = setOpenIDIdentifierFromCookie.arguments;
-	var argc = setOpenIDIdentifierFromCookie.arguments.length;
-	var textboxId = (argc > 0) ? argv[0] : "openid_identifier";
-
 	var openid_identifier_in_cookie = getCookie(OPENID4DISCUZ_OPENID_IDENTIFIER_COOKIE_NAME);
 	if (openid_identifier_in_cookie != null && openid_identifier_in_cookie != "") {
+		var argv = setOpenIDIdentifierFromCookie.arguments;
+		var argc = setOpenIDIdentifierFromCookie.arguments.length;
+		var textboxId = (argc > 0) ? argv[0] : "openid_identifier";
 		document.getElementById(textboxId).value = openid_identifier_in_cookie;
+	}
+}
+
+/**
+ * Initialize the login form by the value saved in cookie.
+ */
+function initLoginFormFromCookie() {
+	setOpenIDIdentifierFromCookie();
+	if (getCookie("loginfield_openid") == "true") {
+		document.getElementById("loginfield_openid").checked = true;
+	}
+	setOpenIdLogin(document.getElementById("loginfield_openid").checked);
+	if (document.getElementById("loginfield_openid").checked) {
+		document.login.openid_identifier.focus();
+	} else {
+		document.login.username.focus();
 	}
 }
