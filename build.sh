@@ -16,7 +16,7 @@ mkdir $BUILD
 # Copy files
 mkdir ${WORK_DIR}
 
-tar cfv ${WORK_DIR}.tar								\
+tar cf ${WORK_DIR}.tar								\
 	--exclude=.svn									\
 	INSTALL.txt										\
 	LICENSE.txt										\
@@ -39,24 +39,27 @@ tar cfv ${WORK_DIR}.tar								\
 	templates/default/openid_setting.lang.php		\
 	templates/default/register.htm
 
-tar xvf ${WORK_DIR}.tar -C ${WORK_DIR}
+tar xf ${WORK_DIR}.tar -C ${WORK_DIR}
 
 # UTF-8
 cd $BUILD
 cp -R ${WORK_DIR} ${WORK_DIR}-UTF-8
-tar czfv ${PKG_UTF8} $PROJECT-$VERSION-UTF-8
+tar czf ${PKG_UTF8} $PROJECT-$VERSION-UTF-8
 
 # GBK
 foreach_dir_iconv(){
 for file in $1/*
 do
-	if [ -d $file ]
-	then
-		foreach_dir_iconv $file
-	elif [ -f $file ]
-	then
-		iconv -f UTF-8 -t GBK $file > $file.tmp
-		mv $file.tmp $file
+	if [ -d $file ]; then
+		if [ "${file##*/}" != "php-openid-2.0.0" ]; then
+			foreach_dir_iconv $file
+		fi
+	elif [ -f $file ]; then
+		ext=${file##*.}
+		if [ $ext = "php" ] || [ $ext = "htm" ] || [ $ext = "js" ]; then
+			iconv -f UTF-8 -t GBK $file > $file.tmp
+			mv $file.tmp $file
+		fi
 	fi
 done
 }
@@ -64,4 +67,4 @@ done
 cd $BUILD
 cp -R ${WORK_DIR} ${WORK_DIR}-GBK
 foreach_dir_iconv ${WORK_DIR}-GBK
-tar czfv ${PKG_GBK} $PROJECT-$VERSION-GBK
+tar czf ${PKG_GBK} $PROJECT-$VERSION-GBK
