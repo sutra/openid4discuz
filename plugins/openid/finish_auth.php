@@ -5,15 +5,16 @@
  * @license http://openid4discuz.redv.com/LICENSE.txt BSD
  */
 require_once "common.php";
+include_once language('openid');
 session_start();
 
 function gotoReg($openid, $sreg) {
-	global $_COOKIE, $cookiepre, $tablepre;
+	global $_COOKIE, $cookiepre, $tablepre, $db;
 
 	$db->query("DELETE FROM {$tablepre}openid_sessions WHERE sid = '".$_COOKIE[$cookiepre.'sid']."'");
 	$db->query("INSERT INTO {$tablepre}openid_sessions(sid, openid_url) VALUES('".$_COOKIE[$cookiepre.'sid']."', '".$openid."')");
-	setcookie('openid_sreg_nickname', $sreg['nickname']);
-	setcookie('openid_sreg_email', $sreg['email']);
+	setcookie('openid4discuz_openid_sreg_nickname', $sreg['nickname']);
+	setcookie('openid4discuz_openid_sreg_email', $sreg['email']);
 	showmessage($GLOBALS['language']['openid_no_bind_before']
 		.'<a href="'.$openid.'">'.$openid.'</a>'.$GLOBALS['language']['openid_no_bind_after'],
 		'register.php');
@@ -29,7 +30,7 @@ function runDiscuz($openid, $sreg) {
 	$query = $db->query("SELECT uid, openid_url FROM {$tablepre}openid WHERE openid_url='".$openid."'");
 	$member_openid = $db->fetch_array($query);
 	if (!$member_openid['uid']) {
-		gotoReg($sreg);
+		gotoReg($openid, $sreg);
 	} else {
 		$uid = $member_openid['uid'];
 		// set login start

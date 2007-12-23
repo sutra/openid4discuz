@@ -105,7 +105,7 @@
 		<tr>
 			<th><label for="username">{lang username} *</label></th>
 			<td>
-				<input type="text" id="username" name="username" size="25" maxlength="15" onBlur="checkusername()" tabindex="3" value="$_COOKIE['openid_sreg_nichname']" />
+				<input type="text" id="username" name="username" size="25" maxlength="15" onBlur="checkusername()" tabindex="3" value="$_COOKIE['openid4discuz_openid_sreg_nickname']" />
 				<span id="checkusername">&nbsp;</span>
 			</td>
 		</tr>
@@ -129,7 +129,7 @@
 		<tr>
 			<th><label for="email">{lang email} *</label></td>
 			<td>
-				<input type="text" name="email" size="25" id="email" onBlur="checkemail()" tabindex="6" value="$_COOKIE['openid_sreg_email']" />
+				<input type="text" name="email" size="25" id="email" onBlur="checkemail()" tabindex="6" value="$_COOKIE['openid4discuz_openid_sreg_email']" />
 				<span id="checkemail">{lang register_email_recommend}<!--{if $regverify == 1}-->&nbsp; {lang register_email_comment}<!--{/if}-->
 				<!--{if $accessemail}-->&nbsp; {lang register_email_invalid}<!--{elseif $censoremail}-->&nbsp; {lang register_email_censor}<!--{/if}--></span>
 			</td>
