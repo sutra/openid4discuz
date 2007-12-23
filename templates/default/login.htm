@@ -2,32 +2,7 @@
 <div id="nav"><a href="$indexname">$bbname</a> &raquo; {lang member_login}</div>
 
 <script type="text/javascript" src="plugins/openid/cookie.js"></script>
-<script type="text/javascript">
-var expires = new Date();
-expires.setTime (expires.getTime() + 365 * (24 * 60 * 60 * 1000)); //+365 day
-
-function setOpenIdLogin(isOpenIdLogin) {
-	document.getElementById("username").style.display = (isOpenIdLogin ? "none" : "inline");
-	document.getElementById("openid_identifier").style.display = (isOpenIdLogin ? "inline" : "none");
-	document.getElementById("password").disabled = isOpenIdLogin;
-	document.getElementById("password").style.backgroundColor = isOpenIdLogin ? '#eee' : '';
-	document.getElementById("questionid").disabled = isOpenIdLogin;
-	document.getElementById("answer").disabled = isOpenIdLogin;
-	document.getElementById("answer").style.backgroundColor = isOpenIdLogin ? '#eee' : '';
-	
-	if (isOpenIdLogin) {
-		document.getElementById("openid_identifier").focus();
-	} else {
-		document.getElementById("username").focus();
-	}
-
-	setCookie("loginfield_openid", isOpenIdLogin, expires);
-}
-
-function submitLogin() {
-	setCookie("openid_identifier", document.getElementById("openid_identifier").value, expires);
-}
-</script>
+<script type="text/javascript" src="plugins/openid/openid.js"></script>
 
 <form method="post" name="login" action="logging.php?action=login&amp;" onsubmit="submitLogin()">
 <input type="hidden" name="formhash" value="{FORMHASH}" />
@@ -125,10 +100,7 @@ function submitLogin() {
 </form>
 
 <script type="text/javascript">
-var openid_identifier_in_cookie = getCookie("openid_identifier")
-if (openid_identifier_in_cookie != null && openid_identifier_in_cookie != "") {
-	document.getElementById("openid_identifier").value = openid_identifier_in_cookie;
-}
+setOpenIDIdentifierFromCookie();
 if (getCookie("loginfield_openid") == "true") {
 	document.getElementById("loginfield_openid").checked = true;
 }

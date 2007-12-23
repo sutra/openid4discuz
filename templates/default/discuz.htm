@@ -29,17 +29,10 @@
 
 <!-- OpenID4Discuz! start -->
 <script type="text/javascript" src="plugins/openid/cookie.js"></script>
-<script type="text/javascript">
-var expires = new Date();
-expires.setTime (expires.getTime() + 365 * (24 * 60 * 60 * 1000)); //+365 day
-
-function submitLogin() {
-	setCookie("openid_identifier", document.getElementById("openid_identifier").value, expires);
-}
-</script>
+<script type="text/javascript" src="plugins/openid/openid.js"></script>
 <!-- OpenID4Discuz! end -->
 
-			<form id="loginform" method="post" name="login" action="logging.php?action=login&amp;loginsubmit=true">
+			<form id="loginform" method="post" name="login" action="logging.php?action=login&amp;loginsubmit=true" onsubmit="submitLogin()">
 				<input type="hidden" name="formhash" value="{FORMHASH}" />
 				<input type="hidden" name="cookietime" value="2592000" />
 				<input type="hidden" name="loginfield" value="username" />
@@ -50,10 +43,7 @@ function submitLogin() {
 				<!-- OpenID4Discuz! start -->
 				<input type="text" id="openid_identifier" name="openid_identifier" size="30" tabindex="3" style="background: url(plugins/openid/images/login-bg.gif) no-repeat; background-position: 0 50%; padding-left: 18px;" />
 				<script type="text/javascript">
-				var openid_identifier_in_cookie = getCookie("openid_identifier")
-				if (openid_identifier_in_cookie != null && openid_identifier_in_cookie != "") {
-					document.getElementById("openid_identifier").value = openid_identifier_in_cookie;
-				}
+				setOpenIDIdentifierFromCookie();
 				</script>
 				<button name="openidlogin" type="submit" value="true">OpenID{lang login}</button>
 				<!-- OpenID4Discuz! end -->
