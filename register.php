@@ -12,7 +12,7 @@ define('NOROBOT', TRUE);
 
 require_once './include/common.inc.php';
 require_once DISCUZ_ROOT.'./forumdata/cache/cache_profilefields.php';
-require_once DISCUZ_ROOT.'./plugins/openid/openid.func.php';
+require_once DISCUZ_ROOT.'./plugins/openid/common.php';
 
 $discuz_action = 5;
 
@@ -348,10 +348,7 @@ if(!submitcheck('regsubmit', 0, $seccodecheck, $secqaa['status'][1])) {
 	}
 
 	// start of openid
-	$query = $db->query("SELECT openid_url FROM {$tablepre}openid_sessions WHERE sid='".$sid."'");
-	$db->query("DELETE FROM {$tablepre}openid_sessions WHERE sid='".$sid."'");
-	$arr = $db->fetch_array($query);
-	$db->query("INSERT {$tablepre}openid(uid, openid_url) VALUES(".$uid.", '".$arr['openid_url']."')");
+	registerOpenID($sid, $uid);
 	// end of openid
 
 	$discuz_uid = $uid;

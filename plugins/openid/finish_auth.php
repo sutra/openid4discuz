@@ -9,10 +9,9 @@ include_once language('openid');
 session_start();
 
 function gotoReg($openid, $sreg) {
-	global $_COOKIE, $cookiepre, $tablepre, $db;
+	global $_COOKIE, $cookiepre, $sid;
 
-	$db->query("DELETE FROM {$tablepre}openid_sessions WHERE sid = '".$_COOKIE[$cookiepre.'sid']."'");
-	$db->query("INSERT INTO {$tablepre}openid_sessions(sid, openid_url) VALUES('".$_COOKIE[$cookiepre.'sid']."', '".$openid."')");
+	updateOpenIDSession($sid, $openid);
 	setcookie('openid4discuz_openid_sreg_nickname', $sreg['nickname']);
 	setcookie('openid4discuz_openid_sreg_email', $sreg['email']);
 	showmessage($GLOBALS['language']['openid_no_bind_before']

@@ -97,6 +97,52 @@ function getTrustRoot() {
                    dirname($_SERVER['PHP_SELF']));
 }
 
+/**
+ * Update openid session.
+ */
+function updateOpenIDSession($sid, $openid_identifier) {
+	global $tablepre, $db;
+	$db->query("DELETE FROM {$tablepre}openid_sessions WHERE sid = '".$sid."'");
+	$db->query("INSERT INTO {$tablepre}openid_sessions(sid, openid_url) VALUES('".$sid."', '".$openid_identifier."')");
+}
+
+/**
+ * Get openid identifier from the session.
+ */
+function getOpenIDFromSession($sid) {
+	global $tablepre, $db;
+	$query = $db->query("SELECT openid_url as openid_identifier FROM {$tablepre}openid_sessions WHERE sid='".$sid."'");
+	$arr = $db->fetch_array($query);
+	return $arr['openid_identifier'];
+}
+
+/**
+ * Delete openid session.
+ */
+function deleteOpenIDSession($sid) {
+	global $tablepre, $db;
+	$db->query("DELETE FROM {$tablepre}openid_sessions WHERE sid='".$sid."'");
+}
+
+/**
+ * Bind openid to a discuz account.
+ */
+function bindOpenID($uid, $openid_identifier) {
+	global $tablepre, $db;
+	$db->query("INSERT {$tablepre}openid(uid, openid_url) VALUES('".$uid."', '".$openid_identifier."')");
+}
+
+/**
+ * Register.
+ */
+function registerOpenID($sid, $uid) {
+	$openid_identifier = getOpenIDFromSession($sid);
+	deleteOpenIDSession($sid);
+	if (!empty($openid_identifier)) {
+		bindOpenID($uid, $openid_identifier);
+	}	
+}
+
 function tryAuth($openid_identifier, $returnTo) {
     $openid = $openid_identifier;
     $consumer = getConsumer();
