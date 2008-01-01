@@ -1,1 +1,1 @@
-http://openid4discuz.redv.com/
+See www/index.html.

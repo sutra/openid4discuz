@@ -86,7 +86,7 @@ elseif ($_POST['formhash'] != '' && $_POST['openid_identifier'] != '') {
 //}
 
 // Obtain current binding from datbase to display
-$query = $db->query("SELECT openid_url as openid_identifer FROM {$tablepre}openid WHERE uid = " . $discuz_uid);
+$query = $db->query("SELECT openid_url as openid_identifier FROM {$tablepre}openid WHERE uid = " . $discuz_uid);
 $openid = $db->fetch_array($query);
 
 include template('openid_setting');

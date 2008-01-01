@@ -41,8 +41,8 @@
 	<!--{/if}-->
 	<tr>
 	<td onclick="document.login.username.focus();">
-	<label><input type="radio" name="loginfield" value="username" checked="checked" />{lang username}</label>
-	<label><input type="radio" name="loginfield" value="uid" />{lang uid}</label>
+	<label><input type="radio" name="loginfield" value="username" checked="checked" onchange="setOpenIdLogin(false)" />{lang username}</label>
+	<label><input type="radio" name="loginfield" value="uid" onchange="setOpenIdLogin(false)" />{lang uid}</label>
 
 	<!-- OpenID4Discuz! start -->
 	<label><input class="radio" type="radio" name="loginfield" value="openid" tabindex="3" onchange="setOpenIdLogin(true)" id="loginfield_openid" />OpenID</label>

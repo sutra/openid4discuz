@@ -9,11 +9,11 @@
 	<h1>$GLOBALS['language']['openid_setting']</h1>
 	<table summary="{lang member_login}" cellspacing="0" cellpadding="0">
 		<tr>
-			<th onclick="document.login.openid_url.focus();">
+			<th onclick="document.login.openid_identifier.focus();">
 				<label>OpenID</label>
 			</th>
 			<td>
-				<input type="text" id="openid_identifier" name="openid_identifier" value="$openid['openid_identifer']" size="40" tabindex="4"
+				<input type="text" id="openid_identifier" name="openid_identifier" value="$openid['openid_identifier']" size="40" tabindex="4"
 					style="background: url(plugins/openid/images/login-bg.gif) no-repeat; background-position: 0 50%; padding-left: 18px;" />
 				<a href="http://openid.org.cn/">$GLOBALS['language']['openid_getone']</a>
 				<br />$GLOBALS['language']['openid_empty']
@@ -28,7 +28,7 @@
 </form>
 
 <script type="text/javascript">
-document.getElementById("openid_identifer").focus();
+document.getElementById("openid_identifier").focus();
 </script>
 
 {template footer}

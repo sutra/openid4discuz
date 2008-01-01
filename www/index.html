@@ -21,7 +21,8 @@
 					OpenID for Discuz!
 				</h1>
 				<div class="slogan">
-					该插件让你的 Discuz! 论坛能使用 OpenID 登录。<br />让用户更容易登入论坛，让你的论坛更方便、更人性、更容易吸引新用户。
+					该插件让你的Discuz!论坛能使用OpenID登录。<br />
+					让用户更容易登入论坛，让你的论坛更方便、更人性、更容易吸引新用户。
 				</div>
 			</div>
 			<div id="content">
@@ -30,11 +31,12 @@
 						特性
 					</h2>
 					<ul>
-						<li>允许论坛已有帐号与 <a href="http://openid.net.cn">OpenID</a> URL 建立一对一绑定，绑定后用户既可用用户名、UID方式登录，也可用已绑定的 OpenID 登录；</li>
-						<li>允许用户修改或者解除帐号和 <a href="http://openid.net.cn">OpenID</a> URL 之间的绑定；</li>
-						<li>用户使用 <a href="http://openid.net.cn">OpenID</a> 登录时，如果该 <a href="http://openid.net.cn">OpenID</a> 没有绑定任何论坛帐号，则辅助用户注册论坛帐号，并建立帐号与 OpenID 间的绑定；</li>
-						<li>用 Cookie 保存用户选择的登录标识类型（用户名，UID，<a href="http://openid.net.cn">OpenID</a>），方便下次登录；</li>
-						<li>用 Cookie 保存用户输入的 <a href="http://openid.net.cn">OpenID</a> URL，方便下次登录。</li>
+						<li>允许论坛已有帐号与<a href="http://openid.net.cn">OpenID</a> Identifier建立一对一绑定，绑定后用户既可用用户名、UID方式登录，也可用已绑定的OpenID Identifier登录；</li>
+						<li>允许用户修改或者解除帐号和<a href="http://openid.net.cn">OpenID</a> Identifier之间的绑定；</li>
+						<li>用户使用<a href="http://openid.net.cn">OpenID</a> Identifier登录时，如果该<a href="http://openid.net.cn">OpenID</a> Identifier没有绑定任何论坛帐号，则辅助用户注册论坛帐号，并建立帐号与OpenID Identifer间的绑定；</li>
+						<li>用Cookie保存用户选择的登录标识类型（用户名、UID或<a href="http://openid.net.cn">OpenID</a> Identifier），方便下次登录；</li>
+						<li>用Cookie保存用户输入的 <a href="http://openid.net.cn">OpenID</a> Identifier，方便下次登录；</li>
+						<li>支持<a href="http://openid.net.cn/specs/openid-authentication-2_0-zh_CN.html">OpenID 2.0认证</a>。</li>
 					</ul>
 				</div>
 				<div>
@@ -42,7 +44,7 @@
 						兼容版本
 					</h2>
 					<ul>
-						<li>支持 <a href="http://www.discuz.com/">Discuz!</a> 6.0.0 GBK/UTF-8 版；</li>
+						<li>支持<a href="http://www.discuz.com/">Discuz!</a> 6.0.0 GBK/UTF-8版；</li>
 						<li>其它版本可能也支持，但未经过测试。</li>
 					</ul>
 				</div>
@@ -51,10 +53,28 @@
 						安装
 					</h2>
 					<ol>
-						<li>备份你的论坛的原始文件： logging.php、register.php、templates/default/login.htm、template/default/register.htm；</li>
-						<li>上传 openid.php、openid_install.php、logging.php、register.php、plugins/openid/*、templates/default/*；</li>
-						<li>用管理员登录，在论坛的后台的“插件管理”里面导入： discuz_plugin_openid4discuz.txt；</li>
-						<li>通过 openid_install.php 添加两个表（表名是“论坛表前缀_openid”，“论坛表前缀_openid_sessions”）到你的论坛数据库（如果同名表已存在，openid_install.php 脚本则不对数据库做任何修改）。</li>
+						<li>备份你的论坛的下列文件（括号中的注释是为什么OpenID4Discuz要修改这些文件）：
+							<ol>
+								<li>logging.php（增加了OpenID登录控制逻辑）</li>
+								<li>register.php（插入了OpenID辅助注册逻辑）</li>
+								<li>templates/default/discuz.htm（增加了论坛首页的OpenID登录框）</li>
+								<li>templates/default/login.htm（增加了登录页的OpenID登录输入框）</li>
+								<li>templates/default/nopermission.htm（未登录点击发帖时，要求登录出现的登录界面上增加了OpenID登录框）</li>
+								<li>templates/default/register.htm（插入了OpenID辅助注册时默认填写的论坛账号）</li>
+							</ol>
+						</li>
+						<li>上传下列文件或目录（以斜线结尾的是目录）。如果提示覆盖同名文件的话，就覆盖，因为上一步我们已经备份了将要被覆盖的文件了：
+							<ol>
+								<li>logging.php</li>
+								<li>register.php</li>
+								<li>openid.php</li>
+								<li>openid_install.php</li>
+								<li>plugins/openid/</li>
+								<li>templates/default/</li>
+							</ol>
+						</li>
+						<li>用管理员登录，在论坛的后台的“插件管理”里面导入：discuz_plugin_openid4discuz.txt；</li>
+						<li>通过openid_install.php添加两个表（表名是“论坛表前缀_openid”，“论坛表前缀_openid_sessions”）到你的论坛数据库（如果同名表已存在，openid_install.php 脚本则不对数据库做任何修改）。</li>
 					</ol>
 				</div>
 				<div>
@@ -62,11 +82,17 @@
 						卸载
 					</h2>
 					<ol>
-						<li>从备份中还原你的论坛的原始文件： logging.php、register.php、templates/default/login.htm、template/default/register.htm；</li>
-						<li>删除 openid.php、openid_install.php、 logging.php、register.php、plugins/openid/*、 templates/default/openid*(注意没有前缀openid的是原discuz的文件不要删除！)；</li>
-						<li>用管理员登录，在论坛的后台的“插件管理”里面删除唯一标识符为 openid4discuz 的插件；</li>
-						<li>删除两个表（表名是“论坛表前缀_openid”，“论坛表前缀_openid_sessions”）。
-						注意强烈建议不要删除表“论坛表前缀_openid”，因为里面存了用户帐号和 OpenID 间的映射；表“论坛表前缀_openid_sessions”删掉无所谓。</li>
+						<li>删除下列文件或目录（以斜线结尾的是目录）：
+							<ol>
+								<li>openid.php</li>
+								<li>openid_install.php</li>
+								<li>plugins/openid/</li>
+								<li>templates/default/openid*（注意没有前缀openid的是原discuz的文件不要删除）</li>
+							</ol>
+						</li>
+						<li>从备份中还原你的论坛的原始文件（文件列表参见安装过程）；</li>
+						<li>用管理员登录，在论坛的后台的“插件管理”里面删除唯一标识符为“openid4discuz”的插件；</li>
+						<li>删除两个表（表名是“论坛表前缀_openid”，“论坛表前缀_openid_sessions”）。注意强烈建议不要删除表“论坛表前缀_openid”，因为里面存了用户帐号和 OpenID 间的映射；表“论坛表前缀_openid_sessions”删掉无所谓。</li>
 					</ol>
 				</div>
 				<div>
@@ -74,7 +100,7 @@
 						授权
 					</h2>
 					<ul>
-						<li>OpenID4Discuz 采用 <a href="LICENSE.txt">New BSD License</a> 协议授权，详见下载包中的 LICENSE.txt。</li>
+						<li>OpenID4Discuz采用<a href="http://www.opensource.org/licenses/bsd-license.php">New BSD License</a>授权，详见下载包中的LICENSE.txt。</li>
 					</ul>
 				</div>
 				<div>
@@ -105,7 +131,7 @@
 				</div>
 			</div>
 			<div id="copyright">
-				Copyright © 2001-2007 <a href="http://redv.com/">Redv.com</a>. All rights reserved.
+				Copyright © 2001-2007 <a href="http://redv.com/">Redv Soft</a>. All rights reserved.
 			</div>
 			<div id="poweredby">
 				<em>Powered by <a href="http://zhoushuqun.com">♨Sutra</a>.</em>

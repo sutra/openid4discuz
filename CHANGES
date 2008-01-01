@@ -1,0 +1,6 @@
+2.0.0
+* 首页增加了OpenID登录框；
+* 如果未登录就点击发贴或回帖出现的登录框也增加了OpenID登录选择；
+* 更换了OpenID类库，这个类库可以支持https的openid identifier，也支持OpenID Authentication 2.0了，
+而且对PHP module `curl‘的依赖也不是必需的了；
+* 之所以版本号从1.0.0跨越到2.0.0是因为一来改变了OpenID类库，二来增加了对OpenID 2.0的支持。
