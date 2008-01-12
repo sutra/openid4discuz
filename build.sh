@@ -11,7 +11,7 @@ PROJECT=openid4discuz
 baseDirForScriptSelf=$(cd "$(dirname "$0")"; pwd)
 BUILD=${baseDirForScriptSelf}/build
 DATE=`date +%Y-%m-%d`
-VERSION="2.0.0-alpha"-$DATE
+VERSION="2.2.0-SNAPSHOT"-$DATE
 
 PKG_UTF8=$BUILD/$PROJECT-$VERSION-UTF-8.tar.gz
 PKG_GBK=$BUILD/$PROJECT-$VERSION-GBK.tar.gz

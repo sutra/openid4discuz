@@ -12,6 +12,7 @@ define('CURSCRIPT', 'logging');
 
 require_once './include/common.inc.php';
 require_once DISCUZ_ROOT.'./include/misc.func.php';
+require_once DISCUZ_ROOT.'./plugins/openid/common.php';
 
 if($action == 'logout' && !empty($formhash)) {
 
@@ -138,6 +139,11 @@ if($action == 'logout' && !empty($formhash)) {
 
 				dsetcookie('cookietime', $cookietime, 31536000);
 				dsetcookie('auth', authcode("$discuz_pw\t$discuz_secques\t$discuz_uid", 'ENCODE'), $cookietime);
+
+				// OpenID4Discuz start
+				// Bind OpenID if login with OpenID that does not exists in our database.
+				registerOpenID($sid, $discuz_uid);
+				// OpenID4Discuz end
 
 				$sessionexists = 0;
 

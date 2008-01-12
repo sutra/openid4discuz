@@ -8,15 +8,22 @@ require_once "common.php";
 include_once language('openid');
 session_start();
 
-function gotoReg($openid, $sreg) {
+function gotoRegOrBind($openid, $sreg) {
 	global $_COOKIE, $cookiepre, $sid;
 
 	updateOpenIDSession($sid, $openid);
 	setcookie('openid4discuz_openid_sreg_nickname', $sreg['nickname']);
 	setcookie('openid4discuz_openid_sreg_email', $sreg['email']);
+	/*
 	showmessage($GLOBALS['language']['openid_no_bind_before']
 		.'<a href="'.$openid.'">'.$openid.'</a>'.$GLOBALS['language']['openid_no_bind_after'],
 		'register.php');
+	*/
+	showmessage(
+		"你的OpenID（<a href=\"$openid\">$openid</a>）尚未和任何论坛账号绑定。"
+		."<br /><br />你可以将你的OpenID<a href=\"logging.php?action=login&amp;openid_action=bind\">"
+		."和你已有的论坛账号绑定</a>或者<a href=\"register.php\">新注册一个论坛账号并绑定</a>。"
+	);
 }
 
 function runDiscuz($openid, $sreg) {
@@ -29,7 +36,7 @@ function runDiscuz($openid, $sreg) {
 	$query = $db->query("SELECT uid, openid_url FROM {$tablepre}openid WHERE openid_url='".$openid."'");
 	$member_openid = $db->fetch_array($query);
 	if (!$member_openid['uid']) {
-		gotoReg($openid, $sreg);
+		gotoRegOrBind($openid, $sreg);
 	} else {
 		$uid = $member_openid['uid'];
 		// set login start

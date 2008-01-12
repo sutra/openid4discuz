@@ -1,3 +1,8 @@
+/**
+ * @author sutra
+ * @copyright Copyright &copy; 2001-2007, Redv Soft
+ * @license http://openid4discuz.redv.com/LICENSE.txt BSD
+ */
 var OPENID4DISCUZ_COOKIE_EXPIRES = new Date();
 OPENID4DISCUZ_COOKIE_EXPIRES.setTime(OPENID4DISCUZ_COOKIE_EXPIRES.getTime() + 365 * (24 * 60 * 60 * 1000)); //+365 day
 
@@ -21,7 +26,16 @@ function setOpenIdLogin(isOpenIdLogin) {
 		document.getElementById("username").focus();
 	}
 
-	setCookie("loginfield_openid", isOpenIdLogin, OPENID4DISCUZ_COOKIE_EXPIRES);
+	var saveCookie = true;
+	var argv = setOpenIdLogin.arguments;
+	var argc = argv.length;
+	if (argc >= 2) {
+		saveCookie = argv[1];
+	}
+
+	if (saveCookie) {
+		setCookie("loginfield_openid", isOpenIdLogin, OPENID4DISCUZ_COOKIE_EXPIRES);
+	}
 }
 
 /**
@@ -49,14 +63,20 @@ function setOpenIDIdentifierFromCookie() {
  * Initialize the login form by the value saved in cookie.
  */
 function initLoginFormFromCookie() {
+	// About querystring, see http://adamv.com/dev/javascript/querystring
+	// Parse the current page's querystring
+	var qs = new Querystring();
+	var bind = false;
+	if (qs.get("openid_action") === "bind") {
+		bind = true;
+	}
+
+	// Retrive openid identifier from cookie.
 	setOpenIDIdentifierFromCookie();
-	if (getCookie("loginfield_openid") == "true") {
+
+	// Set openid login.
+	if (!bind && getCookie("loginfield_openid") == "true") {
 		document.getElementById("loginfield_openid").checked = true;
 	}
-	setOpenIdLogin(document.getElementById("loginfield_openid").checked);
-	if (document.getElementById("loginfield_openid").checked) {
-		document.login.openid_identifier.focus();
-	} else {
-		document.login.username.focus();
-	}
+	setOpenIdLogin(document.getElementById("loginfield_openid").checked, !bind);
 }
