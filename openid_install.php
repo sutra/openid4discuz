@@ -18,12 +18,21 @@ if ($_POST["installsubmit"]) {
 		. "UNIQUE KEY `uid` (`uid`)"
 		. ");";
 	$db->query($sql);
+
 	$sql = "CREATE TABLE IF NOT EXISTS `{$tablepre}openid_sessions` ("
 		. "`sid` char(6) binary NOT NULL,"
 		. "`openid_url` varchar(255) NOT NULL,"
 		. "PRIMARY KEY (`sid`)"
 		. ") ;";
 	$db->query($sql);
+
+	$sql = "CREATE TABLE IF NOT EXISTS `{$tablepre}openid_username_cache` (" .
+			"`username` char(15) NOT NULL DEFAULT ''," .
+			"`last_number` mediumint(8) DEFAULT 0," .
+			"PRIMARY KEY (`username`)" .
+			")";
+	$db->query($sql);
+
 	showmessage("Install OK.");
 }
 

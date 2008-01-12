@@ -143,6 +143,58 @@ function registerOpenID($sid, $uid) {
 	}	
 }
 
+function generateUsername($nickname) {
+	global $tablepre, $db, $query;
+
+	$ret = null;
+
+	$username = $nickname;
+	$last_number = 0;
+	$number = 0;
+
+	// Find the last number in the cache.
+	$query = $db->query("SELECT last_number FROM {$tablepre}openid_username_cache WHERE username = '$username'");
+	if ($db->num_rows($query)) {
+		$cache = $db->fetch_array($query);
+		$last_number = $cache['last_number'];
+		$number = $last_number;
+	}
+
+	if ($number == 0) {
+		$query = $db->query("SELECT username FROM {$tablepre}members WHERE username = '$username'");
+		if(!$db->num_rows($query)) {
+			$ret = $username;
+		}
+	}
+
+	if ($ret == null) {
+		$number = findNextNumber($username, $number);
+		$ret = $username.$number;
+	}
+
+	// Update username cache.	
+	if ($last_number == 0) {
+		$db->query("INSERT INTO {$tablepre}openid_username_cache(`username`, `last_number`) VALUES('$username', $number)");
+	} else {
+		$db->query("UPDATE {$tablepre}openid_username_cache SET last_number = $number WHERE username = '$username'");		
+	}
+
+	return $ret;
+}
+
+/**
+ * Find next number from the member table.
+ */
+function findNextNumber($username, $number) {
+	global $tablepre, $db, $query;
+
+	do {
+		$number += 1;
+		$query = $db->query("SELECT username FROM {$tablepre}members WHERE username = '$username$number'");
+	} while ($db->num_rows($query));
+	return $number;
+}
+
 function tryAuth($openid_identifier, $returnTo) {
     $openid = $openid_identifier;
     $consumer = getConsumer();
@@ -159,7 +211,7 @@ function tryAuth($openid_identifier, $returnTo) {
                                      // Required
                                      array('nickname'),
                                      // Optional
-                                     array('fullname', 'email'));
+                                     array('fullname', 'email', 'dob'));
 
     if ($sreg_request) {
         $auth_request->addExtension($sreg_request);

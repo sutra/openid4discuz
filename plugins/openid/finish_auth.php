@@ -11,6 +11,11 @@ session_start();
 function gotoRegOrBind($openid, $sreg) {
 	global $_COOKIE, $cookiepre, $sid;
 
+	if (true) {
+		register($openid, $sreg);
+		return;
+	}
+
 	updateOpenIDSession($sid, $openid);
 	setcookie('openid4discuz_openid_sreg_nickname', $sreg['nickname']);
 	setcookie('openid4discuz_openid_sreg_email', $sreg['email']);
@@ -26,6 +31,105 @@ function gotoRegOrBind($openid, $sreg) {
 	);
 }
 
+function register($openid_identifier, $sreg) {
+	global $tablepre, $db, $query, $timestamp;
+
+	$username = generateUsername($sreg['nickname']);
+	$plain_password = "a";
+	$password = md5($plain_password);
+	$secques = "";
+	// 1：男，2：女，0：保密
+	$gendernew = 0;
+	$onlineip = get_ip();
+	$email = $sreg['email'];
+	$bday = "0000-00-00";
+	if ($sreg['dob']) {
+		$bday = $sreg['dob'];
+	}
+	$sigstatus = 0;
+	$tppnew = 0;
+	$pppnew = 0;
+	$styleidnew = 0;
+	$dateformatnew = 0;
+	$timeformatnew = 0;
+	$pmsoundnew = 1;
+	$showemailnew = 1;
+	$newsletter = 1;
+	$invisiblenew = 0;
+	$timeoffsetnew = 9999;
+	$nickname = "";
+	$site = "";
+	$icq = "";
+	$qq = "";
+	$yahoo = "";
+	$msn = "";
+	$taobao = "";
+	$alipay = "";
+	$locationnew = "";
+	$bio = "";
+	$sightml = "";
+	$cstatus = "";
+	$authstr = "";
+	$avatar = "";
+	$avatarwidth = 0;
+	$avatarheight = 0;
+
+	$db->query("INSERT INTO {$tablepre}members (username, password, secques, gender, adminid, groupid, regip, regdate, lastvisit, lastactivity, posts, email, bday, sigstatus, tpp, ppp, styleid, dateformat, timeformat, pmsound, showemail, newsletter, invisible, timeoffset)
+		VALUES ('$username', '$password', '$secques', '$gendernew', '0', '10', '$onlineip', '$timestamp', '$timestamp', '$timestamp', '0', '$email', '$bday', '$sigstatus', '$tppnew', '$pppnew', '$styleidnew', '$dateformatnew', '$timeformatnew', '$pmsoundnew', '$showemailnew', '$newsletter', '$invisiblenew', '$timeoffsetnew')");
+	$uid = $db->insert_id();
+
+	$db->query("INSERT INTO {$tablepre}memberfields (uid, nickname, site, icq, qq, yahoo, msn, taobao, alipay, location, bio, sightml, customstatus, authstr, avatar, avatarwidth, avatarheight)
+		VALUES ('$uid', '$nickname', '$site', '$icq', '$qq', '$yahoo', '$msn', '$taobao', '$alipay', '$locationnew', '$bio', '$sightml', '$cstatus', '$authstr', '$avatar', '$avatarwidth', '$avatarheight')");
+
+	bindOpenID($uid, $openid_identifier);
+	
+	// Set login.
+	setLogin($uid);
+}
+
+function setLogin($uid) {
+	global $tablepre, $query, $db, $_DCACHE, $_DCOOKIE;
+
+	global $discuz_uid, $discuz_user, $discuz_pw, $discuz_secques, $adminid, $groupid, $styleidmem, 
+		$lastvisit, $lastpost, $allowinvisible;
+	global $discuz_userss;
+
+	$query = $db->query("SELECT m.uid AS discuz_uid, m.username AS discuz_user, m.password AS discuz_pw, m.secques AS discuz_secques,
+						m.adminid, m.groupid, m.styleid AS styleidmem, m.lastvisit, m.lastpost, u.allowinvisible
+						FROM {$tablepre}members m LEFT JOIN {$tablepre}usergroups u USING (groupid)
+						WHERE m.uid='" . $uid . "'");
+	$member = $db->fetch_array($query);
+
+	if ($member['discuz_uid']) {
+
+		extract($member);
+
+		$discuz_userss = $discuz_user;
+		$discuz_user = addslashes($discuz_user);
+
+//		if (($allowinvisible && $loginmode == 'invisible') || $loginmode == 'normal') {
+//			$db->query("UPDATE {$tablepre}members SET invisible='" . ($loginmode == 'invisible' ? 1 : 0) . "' WHERE uid='$member[discuz_uid]'", 'UNBUFFERED');
+//		}
+
+		$styleid = intval(empty($_POST['styleid']) ? ($styleidmem ? $styleidmem :
+				$_DCACHE['settings']['styleid']) : $_POST['styleid']);
+
+		$cookietime = intval(isset($_POST['cookietime']) ? $_POST['cookietime'] :
+				($_DCOOKIE['cookietime'] ? $_DCOOKIE['cookietime'] : 0));
+
+		dsetcookie('cookietime', $cookietime, 31536000);
+		dsetcookie('auth', authcode("$discuz_pw\t$discuz_secques\t$discuz_uid", 'ENCODE'), $cookietime);
+
+		$sessionexists = 0;
+
+		if ($groupid == 8) {
+			showmessage('login_succeed_inactive_member', 'memcp.php');
+		} else {
+			showmessage('login_succeed', dreferer());
+		}
+	}
+}
+
 function runDiscuz($openid, $sreg) {
 	global $tablepre, $query, $db, $_DCACHE, $_DCOOKIE;
 
@@ -39,42 +143,9 @@ function runDiscuz($openid, $sreg) {
 		gotoRegOrBind($openid, $sreg);
 	} else {
 		$uid = $member_openid['uid'];
-		// set login start
-		$query = $db->query("SELECT m.uid AS discuz_uid, m.username AS discuz_user, m.password AS discuz_pw, m.secques AS discuz_secques,
-							m.adminid, m.groupid, m.styleid AS styleidmem, m.lastvisit, m.lastpost, u.allowinvisible
-							FROM {$tablepre}members m LEFT JOIN {$tablepre}usergroups u USING (groupid)
-							WHERE m.uid='" . $uid . "'");
-		$member = $db->fetch_array($query);
 
-		if ($member['discuz_uid']) {
-
-			extract($member);
-
-			$discuz_userss = $discuz_user;
-			$discuz_user = addslashes($discuz_user);
-
-//			if (($allowinvisible && $loginmode == 'invisible') || $loginmode == 'normal') {
-//				$db->query("UPDATE {$tablepre}members SET invisible='" . ($loginmode == 'invisible' ? 1 : 0) . "' WHERE uid='$member[discuz_uid]'", 'UNBUFFERED');
-//			}
-
-			$styleid = intval(empty($_POST['styleid']) ? ($styleidmem ? $styleidmem :
-					$_DCACHE['settings']['styleid']) : $_POST['styleid']);
-
-			$cookietime = intval(isset($_POST['cookietime']) ? $_POST['cookietime'] :
-					($_DCOOKIE['cookietime'] ? $_DCOOKIE['cookietime'] : 0));
-
-			dsetcookie('cookietime', $cookietime, 31536000);
-			dsetcookie('auth', authcode("$discuz_pw\t$discuz_secques\t$discuz_uid", 'ENCODE'), $cookietime);
-
-			$sessionexists = 0;
-
-			if ($groupid == 8) {
-				showmessage('login_succeed_inactive_member', 'memcp.php');
-			} else {
-				showmessage('login_succeed', dreferer());
-			}
-		}
-		// set login end
+		// Set login
+		setLogin($uid);
 	}
 }
 
