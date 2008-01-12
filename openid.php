@@ -6,6 +6,7 @@
  */
 require_once 'include/common.inc.php';
 require_once DISCUZ_ROOT.'./plugins/openid/openid.func.php';
+require_once DISCUZ_ROOT.'./forumdata/cache/plugin_openid4discuz.php';
 
 $action = $_GET['action'];
 if ($action == 'finish_auth') {

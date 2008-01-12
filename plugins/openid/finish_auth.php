@@ -8,13 +8,19 @@ require_once "common.php";
 include_once language('openid');
 session_start();
 
+function handleNewOpenid($openid, $sreg) {
+	global $_DPLUGIN;
+
+	$handle_type = $_DPLUGIN['openid4discuz']['vars']['new_openid_handle_type'];
+	if (empty($handle_type) || $handle_type == 1) {
+		register($openid, $sreg);
+	} else {
+		gotoRegOrBind($openid, $sreg);
+	}
+}
+
 function gotoRegOrBind($openid, $sreg) {
 	global $_COOKIE, $cookiepre, $sid;
-
-	if (true) {
-		register($openid, $sreg);
-		return;
-	}
 
 	updateOpenIDSession($sid, $openid);
 	setcookie('openid4discuz_openid_sreg_nickname', $sreg['nickname']);
@@ -140,7 +146,7 @@ function runDiscuz($openid, $sreg) {
 	$query = $db->query("SELECT uid, openid_url FROM {$tablepre}openid WHERE openid_url='".$openid."'");
 	$member_openid = $db->fetch_array($query);
 	if (!$member_openid['uid']) {
-		gotoRegOrBind($openid, $sreg);
+		handleNewOpenid($openid, $sreg);
 	} else {
 		$uid = $member_openid['uid'];
 
