@@ -1,6 +1,6 @@
 # Discuz! Plugin Dump
 # Version: Discuz! 6.0.0
-# Time: 2008-1-13 06:36  
+# Time: 2008-1-13 06:48  
 # From: Discuz! Board (http://localhost/openid4discuz/) 
 #
 # Discuz! Community: http://www.Discuz.net
@@ -21,7 +21,7 @@ IjtzOjc6ImFkbWluaWQiO3M6MToiMCI7czoxMjoiZGlzcGxheW9yZGVyIjtp
 OjA7fX0iO31zOjc6InZlcnNpb24iO3M6NToiNi4wLjAiO3M6NDoidmFycyI7
 YToxOntpOjA7YTo3OntzOjEyOiJkaXNwbGF5b3JkZXIiO3M6MToiMCI7czo1
 OiJ0aXRsZSI7czozNzoi5pawT3BlbklE55m75b2V5ZCO5aaC5L2V5aSE55CG
-IC4uIC4uLiI7czoxMToiZGVzY3JpcHRpb24iO3M6MzYzOiLlvZPnlKjmiLfk
+IC4uIC4uLiI7czoxMToiZGVzY3JpcHRpb24iO3M6MzcxOiLlvZPnlKjmiLfk
 vb/nlKjku5bnmoRPcGVuSUQgSWRlbnRpZmllcueZu+W9leWQju+8jOivpU9w
 ZW5JRCBJZGVudGlmaWVy5pyq5a+55bqU6K665Z2b5Lu75L2V6LSm5Y+35pe2
 77yMT3BlbklENERpc2N1euaPkOS+m+S6hjPnp43mlrnlvI/mnaXlpITnkIbo
@@ -29,10 +29,10 @@ v5nnp43mg4XlhrXvvJroh6rliqjmoLnmja7ku45PUO+8iE9wZW5JRCBQcm92
 aWRlcu+8ieiOt+WPluWIsOeahOaYteensOazqOWGjOS4gOS4quiuuuWdm+i0
 puWPt+W5tue7keWumu+8m+iuqeeUqOaIt+mAieaLqee7keWumuS4gOS4quS7
 luW3suacieeahOiuuuWdm+i0puWPt++8m+iuqeeUqOaIt+mAieaLqeazqOWG
-jOS4gOS4quaWsOiuuuWdm+i0puWPt+W5tue7keWumuOAgiAuLi4iO3M6ODoi
-dmFyaWFibGUiO3M6MjI6Im5ld19vcGVuaWRfaGFuZGxlX3R5cGUiO3M6NDoi
-dHlwZSI7czo2OiJzZWxlY3QiO3M6NToidmFsdWUiO3M6MToiMiI7czo1OiJl
-eHRyYSI7czoxNDA6IjE96Ieq5Yqo5Li655So5oi36YCJ5oup5LiA5LiqVXNl
-cm5hbWXms6jlhozvvIjmjqjojZDvvIkNCjI96K6p55So5oi36YCJ5oup77yI
-5pyJ5LqM5Liq6YCJ5oup77ya57uR5a6a5bey5pyJ6LSm5Y+344CB5rOo5YaM
-5paw6LSm5Y+357uR5a6a77yJIjt9fX0=
+jOS4gOS4quaWsOiuuuWdm+i0puWPt+W5tue7keWumuOAgiAuLi4gLi4uIC4u
+LiI7czo4OiJ2YXJpYWJsZSI7czoyMjoibmV3X29wZW5pZF9oYW5kbGVfdHlw
+ZSI7czo0OiJ0eXBlIjtzOjY6InNlbGVjdCI7czo1OiJ2YWx1ZSI7czoxOiIy
+IjtzOjU6ImV4dHJhIjtzOjE0OToiMT3oh6rliqjkuLrnlKjmiLfpgInmi6nk
+uIDkuKpVc2VybmFtZeazqOWGjOW5tue7keWumu+8iOaOqOiNkO+8iQ0KMj3o
+rqnnlKjmiLfpgInmi6nvvIjmnInkuozkuKrpgInmi6nvvJrnu5Hlrprlt7Lm
+nInotKblj7fjgIHms6jlhozmlrDotKblj7fnu5HlrprvvIkiO319fQ==
