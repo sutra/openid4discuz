@@ -37,4 +37,39 @@ function getUrl() {
 
 	return $url;
 }
+
+ //----------------------------------------------------
+// Function GetSID()
+//
+// Parameters : $nSize number of caracters, default 24
+// Return value : 24 caracters string
+//
+// Description : This function returns a random string
+// of 24 caracters that can be used to identify users
+// on your web site in a more secure way. You can also
+// use this function to generate passwords.
+//----------------------------------------------------
+function GetSID ($nSize=24) {
+	// Randomize
+	mt_srand ((double) microtime() * 1000000);
+	for ($i=1; $i<=$nSize; $i++) {
+	
+		// if you wish to add numbers in your string,
+		// uncomment the two lines that are commented
+		// in the if statement
+		$nRandom = mt_rand(1,30);
+		if ($nRandom <= 10) {
+			// Uppercase letters
+			$sessionID .= chr(mt_rand(65,90));
+			// } elseif ($nRandom <= 20) {
+			// $sessionID .= mt_rand(0,9);
+		} else {
+			// Lowercase letters
+			$sessionID .= chr(mt_rand(97,122));
+		}
+	}
+	return $sessionID;
+}
+// Test the function
+// echo GetSID(24); 
 ?>

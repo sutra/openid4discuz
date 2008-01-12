@@ -78,7 +78,7 @@
 							</ol>
 						</li>
 						<li>用管理员登录，在论坛的后台的“插件管理”里面导入：discuz_plugin_openid4discuz.txt；</li>
-						<li>通过openid_install.php添加两个表（表名是“论坛表前缀_openid”，“论坛表前缀_openid_sessions”）到你的论坛数据库（如果同名表已存在，openid_install.php 脚本则不对数据库做任何修改）。</li>
+						<li>通过openid_install.php添加三个表（表名是“论坛表前缀_openid”，“论坛表前缀_openid_sessions”，“论坛表前缀_openid_username_cache”）到你的论坛数据库（如果同名表已存在，openid_install.php 脚本则不对数据库做任何修改）。</li>
 					</ol>
 				</div>
 				<div>
@@ -96,7 +96,7 @@
 						</li>
 						<li>从备份中还原你的论坛的原始文件（文件列表参见安装过程）；</li>
 						<li>用管理员登录，在论坛的后台的“插件管理”里面删除唯一标识符为“openid4discuz”的插件；</li>
-						<li>删除两个表（表名是“论坛表前缀_openid”，“论坛表前缀_openid_sessions”）。注意强烈建议不要删除表“论坛表前缀_openid”，因为里面存了用户帐号和 OpenID 间的映射；表“论坛表前缀_openid_sessions”删掉无所谓。</li>
+						<li>删除三个表（表名是“论坛表前缀_openid”，“论坛表前缀_openid_sessions”，“论坛表前缀_openid_username_cache”）。注意强烈建议不要删除表“论坛表前缀_openid”，因为里面存了用户帐号和 OpenID 间的映射；表“论坛表前缀_openid_sessions”和“论坛表前缀_openid_username_cache”删掉无所谓。</li>
 					</ol>
 				</div>
 				<div>

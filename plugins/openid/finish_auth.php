@@ -41,7 +41,7 @@ function register($openid_identifier, $sreg) {
 	global $tablepre, $db, $query, $timestamp;
 
 	$username = generateUsername($sreg['nickname']);
-	$plain_password = "a";
+	$plain_password = GetSID(24);
 	$password = md5($plain_password);
 	$secques = "";
 	// 1：男，2：女，0：保密

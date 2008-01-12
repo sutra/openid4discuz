@@ -1,6 +1,6 @@
 # Discuz! Plugin Dump
 # Version: Discuz! 6.0.0
-# Time: 2008-1-13 06:48  
+# Time: 2008-1-13 07:41  
 # From: Discuz! Board (http://localhost/openid4discuz/) 
 #
 # Discuz! Community: http://www.Discuz.net
@@ -31,7 +31,7 @@ puWPt+W5tue7keWumu+8m+iuqeeUqOaIt+mAieaLqee7keWumuS4gOS4quS7
 luW3suacieeahOiuuuWdm+i0puWPt++8m+iuqeeUqOaIt+mAieaLqeazqOWG
 jOS4gOS4quaWsOiuuuWdm+i0puWPt+W5tue7keWumuOAgiAuLi4gLi4uIC4u
 LiI7czo4OiJ2YXJpYWJsZSI7czoyMjoibmV3X29wZW5pZF9oYW5kbGVfdHlw
-ZSI7czo0OiJ0eXBlIjtzOjY6InNlbGVjdCI7czo1OiJ2YWx1ZSI7czoxOiIy
+ZSI7czo0OiJ0eXBlIjtzOjY6InNlbGVjdCI7czo1OiJ2YWx1ZSI7czoxOiIx
 IjtzOjU6ImV4dHJhIjtzOjE0OToiMT3oh6rliqjkuLrnlKjmiLfpgInmi6nk
 uIDkuKpVc2VybmFtZeazqOWGjOW5tue7keWumu+8iOaOqOiNkO+8iQ0KMj3o
 rqnnlKjmiLfpgInmi6nvvIjmnInkuozkuKrpgInmi6nvvJrnu5Hlrprlt7Lm
