@@ -70,6 +70,4 @@ function GetSID ($nSize=24) {
 	}
 	return $sessionID;
 }
-// Test the function
-// echo GetSID(24); 
 ?>

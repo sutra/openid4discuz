@@ -151,10 +151,12 @@ function generateUsername($nickname) {
 	$username = $nickname;
 	$last_number = 0;
 	$number = 0;
+	$hasCached = false;
 
 	// Find the last number in the cache.
 	$query = $db->query("SELECT last_number FROM {$tablepre}openid_username_cache WHERE username = '$username'");
 	if ($db->num_rows($query)) {
+		$hasCached = true;
 		$cache = $db->fetch_array($query);
 		$last_number = $cache['last_number'];
 		$number = $last_number;
@@ -173,10 +175,10 @@ function generateUsername($nickname) {
 	}
 
 	// Update username cache.	
-	if ($last_number == 0) {
-		$db->query("INSERT INTO {$tablepre}openid_username_cache(`username`, `last_number`) VALUES('$username', $number)");
+	if ($hasCached) {
+		$db->query("UPDATE {$tablepre}openid_username_cache SET last_number = $number WHERE username = '$username'");
 	} else {
-		$db->query("UPDATE {$tablepre}openid_username_cache SET last_number = $number WHERE username = '$username'");		
+		$db->query("INSERT INTO {$tablepre}openid_username_cache(`username`, `last_number`) VALUES('$username', $number)");
 	}
 
 	return $ret;
@@ -193,6 +195,40 @@ function findNextNumber($username, $number) {
 		$query = $db->query("SELECT username FROM {$tablepre}members WHERE username = '$username$number'");
 	} while ($db->num_rows($query));
 	return $number;
+}
+
+function obtainNickname($openid_identifier, $sreg) {
+	$ret = null;
+	if (!empty($sreg['nickname'])) {
+		$ret = $sreg['nickname'];
+	} elseif (!empty($sreg['email'])) {
+		$a = preg_split("/[@]/", $sreg['email']);
+		$ret = $a[0];
+	} else {
+		$ret = parseNicknameFromUrl($openid_identifier);
+	}
+	return strtolower($ret);
+}
+
+function parseNicknameFromUrl($openid_identifier) {
+	$m = preg_match("/^(http[s]?:\/\/)?([^\/]+)/i", $openid_identifier, $matches);
+	if (!$m) {
+		return $openid_identifier;
+	}
+
+	$host = $matches[2];
+	// xxx.openid.org.cn, xxx.myopenid.com, xxx.openid.cn, xxx.openid.35.com, xxx.openid.org, xxx.mysecond.name, xxx.pip.verisignlabs.com
+	if (preg_match("/([^\.\/]+)\.((openid\.org\.cn)|(myopenid\.com)|(openid\.cn)|(openid\.35\.com)|(openid\.org)|(mysecond\.name)|(pip\.verisignlabs\.com))/", $host, $matches)) {
+		$ret = $matches[1];
+	} else {
+		// www.ican.com.cn/xxx
+		if(preg_match("/^(http[s]?:\/\/)?[^\/]+[\/]+([^\/]+)/i", $openid_identifier, $matches)) {
+			$ret = $matches[2];
+		} else {
+			$ret = $host;
+		}
+	}
+	return $ret;
 }
 
 function tryAuth($openid_identifier, $returnTo) {

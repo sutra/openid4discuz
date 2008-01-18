@@ -1,12 +1,31 @@
-2.2.0
-* 新增特性：允许论坛管理员配置使用自动注册（推荐）或是用户选择绑定的方式来处理新OpenID登录的情况。
+2.2.1(2008-01-19)
+ * Bug修正：修正当OP返回的Nickname是空的时候，产生的用户名是纯数字的问题。
+   修正后当OP返回的Nickname是空值时，就从OpenID Identifier中抓取用户昵称。
+   目前支持的OP有：	
+   xxx.openid.org.cn
+   xxx.myopenid.com
+   xxx.openid.cn
+   xxx.openid.35.com
+   xxx.openid.org
+   xxx.mysecond.name
+   xxx.pip.verisignlabs.com
+   www.ican.com.cn/xxx
 
-2.1.0
-* 新增特性：当用户使用一个尚未和任何论坛账号绑定时，允许用户选择和已有账号绑定或是注册一个新账号来绑定。
+2.2.0(2008-01-13)
+ * 新增特性：允许论坛管理员配置使用自动注册（推荐）或是用户选择绑定的方式来处理新OpenID登录的情况。
 
-2.0.0
-* 首页增加了OpenID登录框；
-* 如果未登录就点击发贴或回帖出现的登录框也增加了OpenID登录选择；
-* 更换了OpenID类库，这个类库可以支持https的openid identifier，也支持OpenID Authentication 2.0了，
-而且对PHP module `curl‘的依赖也不是必需的了；
-* 之所以版本号从1.0.0跨越到2.0.0是因为一来改变了OpenID类库，二来增加了对OpenID 2.0的支持。
+2.1.0(2008-01-13)
+ * 新增特性：当用户使用一个尚未和任何论坛账号绑定时，允许用户选择和已有账号绑定或是注册一个新账号来绑定。
+
+2.0.0(2008-01-05)
+ * 首页增加了OpenID登录框；
+ * 如果未登录就点击发贴或回帖出现的登录框也增加了OpenID登录选择；
+ * 更换了OpenID类库，这个类库可以支持https的openid identifier，也支持OpenID Authentication 2.0了，
+   而且对PHP module `curl‘的依赖也不是必需的了；
+ * 之所以版本号从1.0.0跨越到2.0.0是因为一来改变了OpenID类库，二来增加了对OpenID 2.0的支持。
+
+1.0.0(2007-12-14)
+ * 完善用户绑定和登录功能。
+
+0.1.0(2007-11-20)
+ * 完成用户绑定和登录功能。

@@ -40,7 +40,7 @@ function gotoRegOrBind($openid, $sreg) {
 function register($openid_identifier, $sreg) {
 	global $tablepre, $db, $query, $timestamp;
 
-	$username = generateUsername($sreg['nickname']);
+	$username = generateUsername(obtainNickname($openid_identifier, $sreg));
 	$plain_password = GetSID(24);
 	$password = md5($plain_password);
 	$secques = "";

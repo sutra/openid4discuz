@@ -11,7 +11,7 @@ PROJECT=openid4discuz
 baseDirForScriptSelf=$(cd "$(dirname "$0")"; pwd)
 BUILD=${baseDirForScriptSelf}/build
 DATE=`date +%Y-%m-%d`
-VERSION="2.2.0-SNAPSHOT"-$DATE
+VERSION="2.2.2-SNAPSHOT"-$DATE
 
 PKG_UTF8=$BUILD/$PROJECT-$VERSION-UTF-8.tar.gz
 PKG_GBK=$BUILD/$PROJECT-$VERSION-GBK.tar.gz
@@ -27,6 +27,7 @@ mkdir ${WORK_DIR}
 tar cf ${WORK_DIR}.tar								\
 	--exclude=.svn									\
 	www/*											\
+	CHANGES											\
 	INSTALL.txt										\
 	LICENSE.txt										\
 	README.txt										\
