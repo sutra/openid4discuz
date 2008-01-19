@@ -77,4 +77,7 @@ done
 cd $BUILD
 cp -R ${WORK_DIR} ${WORK_DIR}-GBK
 foreach_dir_iconv ${WORK_DIR}-GBK
+php -f ${baseDirForScriptSelf}/tools/plugin_decode.php < ${WORK_DIR}-GBK/discuz_plugin_openid4discuz.txt \
+	| iconv -f UTF-8 -t GBK \
+	| php -f ${baseDirForScriptSelf}/tools/plugin_encode.php > ${WORK_DIR}-GBK/discuz_plugin_openid4discuz.txt
 tar czf ${PKG_GBK} $PROJECT-$VERSION-GBK
