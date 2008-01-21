@@ -11,17 +11,30 @@
  */
 interface OpenIDDao {
 	/**
+	 * Is username exists.
+	 * @access public
+	 */
+	public function isUsernameExists($username);
+
+	/**
+	 * Find next number of the username.
+	 * 
+	 * @access public
+	 */
+	public function findNextNumber($username, $number);
+
+	/**
 	 * Bind openid to a discuz account.
 	 * 
 	 * @access public
 	 */
-	function bindOpenID($uid, $openid_identifier);
+	public function bindOpenID($uid, $openid_identifier);
 
 	/**
 	 * Unbind openid from discuz account.
 	 * 
 	 * @access public
 	 */
-	function unbindOpenID($uid, $openid_identifier);
+	public function unbindOpenID($uid, $openid_identifier);
 }
 ?>

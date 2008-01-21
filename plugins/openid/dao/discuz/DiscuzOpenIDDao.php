@@ -19,21 +19,46 @@ class DiscuzOpenIDDao extends DiscuzDao implements OpenIDDao {
 	/**
 	 * @access public
 	 */
-	function DiscuzOpenIDDao($tablepre, $db) {
+	public function DiscuzOpenIDDao($tablepre, $db) {
 		DiscuzDao::DiscuzDao($tablepre, $db);
 	}
 
 	/**
 	 * @access public
 	 */
-	function bindOpenID($uid, $openid_identifier) {
+	public function isUsernameExists($username) {
+		$query = $this->db->query("SELECT username FROM {$this->tablepre}members WHERE username = '$username'");
+		if($this->db->num_rows($query)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * Find next number from the member table.
+	 * 
+	 * @access private
+	 */
+	public function findNextNumber($username, $number) {
+		do {
+			$number += 1;
+			$query = $this->db->query("SELECT username FROM {$this->tablepre}members WHERE username = '$username$number'");
+		} while ($this->db->num_rows($query));
+		return $number;
+	}
+
+	/**
+	 * @access public
+	 */
+	public function bindOpenID($uid, $openid_identifier) {
 		$this->db->query("INSERT {$this->tablepre}openid(uid, openid_url) VALUES('" . $uid . "', '" . $openid_identifier . "')");
 	}
 
 	/**
 	 * @access public
 	 */
-	function unbindOpenID($uid, $openid_identifier) {
+	public function unbindOpenID($uid, $openid_identifier) {
 		$query = $this->db->query("DELETE FROM {$this->tablepre}openid WHERE uid = " . $uid);
 		$rows = $this->db->affected_rows($query);
 		return $rows;

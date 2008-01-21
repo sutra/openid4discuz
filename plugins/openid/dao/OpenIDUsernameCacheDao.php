@@ -11,13 +11,6 @@
  */
 interface OpenIDUsernameCacheDao {
 	/**
-	 * Insert last number.
-	 * 
-	 * @access public
-	 */
-	function insertLastNumber($username, $number);
-
-	/**
 	 * Update last number.
 	 * 
 	 * @access public

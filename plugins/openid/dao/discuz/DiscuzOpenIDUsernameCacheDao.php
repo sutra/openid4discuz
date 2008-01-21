@@ -19,21 +19,21 @@ class DiscuzOpenIDUsernameCacheDao extends DiscuzDao implements OpenIDUsernameCa
 	/**
 	 * @access public
 	 */	
-	function DiscuzOpenIDUsernameCacheDao($tablepre, $db) {
+	public function DiscuzOpenIDUsernameCacheDao($tablepre, $db) {
 		DiscuzDao::DiscuzDao($tablepre, $db);
 	}
 
 	/**
 	 * @access public
 	 */
-	function updateLastNumber($username, $last_number) {
+	public function updateLastNumber($username, $last_number) {
 		$this->db->query("UPDATE {$this->tablepre}openid_username_cache SET last_number = ".$last_number." WHERE username = '".$username."'");
 	}
 
 	/**
 	 * @access private
 	 */
-	public function insertLastNumber($username, $last_number) {
+	private function insertLastNumber($username, $last_number) {
 		$this->db->query("INSERT INTO {$this->tablepre}openid_username_cache(username, last_number) VALUES('".$username."', ".$last_number.")");		
 	}
 

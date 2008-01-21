@@ -20,7 +20,7 @@ abstract class DiscuzDao {
 	 * @param Database handler db
 	 * @access public
 	 */
-	function DiscuzDao($tablepre, $db) {
+	public function DiscuzDao($tablepre, $db) {
 		$this->tablepre = $tablepre;
 		$this->db = $db;
 	}

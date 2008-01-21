@@ -19,14 +19,14 @@ class DiscuzOpenIDSessionDao extends DiscuzDao implements OpenIDSessionDao {
 	/**
 	 * @access public
 	 */
-	function DiscuzOpenIDSessionDao($tablepre, $db) {
+	public function DiscuzOpenIDSessionDao($tablepre, $db) {
 		DiscuzDao::DiscuzDao($tablepre, $db);
 	}
 
 	/**
 	 * @access public
 	 */
-	function getOpenIDFromSession($sid) {
+	public function getOpenIDFromSession($sid) {
 		$query = $this->db->query("SELECT openid_url as openid_identifier FROM {$this->tablepre}openid_sessions WHERE sid='" . $sid . "'");
 		$arr = $this->db->fetch_array($query);
 		return $arr['openid_identifier'];
@@ -35,14 +35,14 @@ class DiscuzOpenIDSessionDao extends DiscuzDao implements OpenIDSessionDao {
 	/**
 	 * @access public
 	 */
-	function deleteOpenIDSession($sid) {
+	public function deleteOpenIDSession($sid) {
 		$this->db->query("DELETE FROM {$this->tablepre}openid_sessions WHERE sid='" . $sid . "'");
 	}
 
 	/**
 	 * @access public
 	 */
-	function updateOpenIDSession($sid, $openid_identifier) {
+	public function updateOpenIDSession($sid, $openid_identifier) {
 		$this->db->query("DELETE FROM {$this->tablepre}openid_sessions WHERE sid = '" . $sid . "'");
 		$this->db->query("INSERT INTO {$this->tablepre}openid_sessions(sid, openid_url) VALUES('" . $sid . "', '" . $openid_identifier . "')");
 	}
