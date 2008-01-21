@@ -1,3 +1,6 @@
+2.2.2(2008-xx-xx)
+ * Bug修正：修正GBK导入代码乱码问题。
+
 2.2.1(2008-01-19)
  * Bug修正：修正当OP返回的Nickname是空的时候，产生的用户名是纯数字的问题。
    修正后当OP返回的Nickname是空值时，就从OpenID Identifier中抓取用户昵称。
