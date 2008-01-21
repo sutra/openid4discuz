@@ -10,10 +10,10 @@
  * @access public
  */
 define('OPENID4DISCUZ_ROOT', dirname(__FILE__));
-include_once (OPENID4DISCUZ_ROOT . "/dao/discuz/DiscuzOpenIDDao.php");
-include_once (OPENID4DISCUZ_ROOT . "/dao/discuz/DiscuzOpenIDSessionDao.php");
-include_once (OPENID4DISCUZ_ROOT . "/dao/discuz/DiscuzOpenIDUsernameCacheDao.php");
-include_once (OPENID4DISCUZ_ROOT . "/util/OpenIDIdentifierParser.php");
+require_once (OPENID4DISCUZ_ROOT . "/dao/discuz/DiscuzOpenIDDao.php");
+require_once (OPENID4DISCUZ_ROOT . "/dao/discuz/DiscuzOpenIDSessionDao.php");
+require_once (OPENID4DISCUZ_ROOT . "/dao/discuz/DiscuzOpenIDUsernameCacheDao.php");
+require_once (OPENID4DISCUZ_ROOT . "/util/OpenIDIdentifierParser.php");
 
 class OpenID4Discuz {
 	private $openidDao;

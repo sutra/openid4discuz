@@ -9,8 +9,8 @@
  * @license http://openid4discuz.redv.com/LICENSE.txt New BSD License
  */
 define('OPENID4DISCUZ_DISCUZ_DAO_ROOT', dirname(__FILE__));
-include_once (OPENID4DISCUZ_DISCUZ_DAO_ROOT."/../OpenIDDao.php");
-include_once (OPENID4DISCUZ_DISCUZ_DAO_ROOT."/DiscuzDao.php");
+require_once (OPENID4DISCUZ_DISCUZ_DAO_ROOT."/../OpenIDDao.php");
+require_once (OPENID4DISCUZ_DISCUZ_DAO_ROOT."/DiscuzDao.php");
 
 /**
  * @access public
