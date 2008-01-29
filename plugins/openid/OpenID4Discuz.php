@@ -30,7 +30,16 @@ class OpenID4Discuz {
 		$this->openidSessionDao = new DiscuzOpenIDSessionDao($tablepre, $db);
 		$this->openidUsernameCacheDao = new DiscuzOpenIDUsernameCacheDao($tablepre, $db);
 	}
-	
+
+	/**
+	 * Get user id by openid identifer.
+	 * 
+	 * @access public
+	 */
+	public function getUserIDByOpenID($openid_identifier) {
+		return $this->openidDao->getUserIDByOpenID($openid_identifier);
+	}
+
 	/**
 	 * Register.
 	 * 

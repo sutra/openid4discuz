@@ -26,6 +26,20 @@ class DiscuzOpenIDDao extends DiscuzDao implements OpenIDDao {
 	/**
 	 * @access public
 	 */
+	public function getUserIDByOpenID($openid_identifier) {
+		$query = $this->db->query("SELECT uid FROM {$this->tablepre}openid WHERE openid_url='" . $openid_identifier . "'");
+		$member = $this->db->fetch_array($query);
+		$uid = $member['uid'];
+		if (!$uid) {
+			return 0;
+		} else {
+			return $uid;
+		}
+	}
+
+	/**
+	 * @access public
+	 */
 	public function isUsernameExists($username) {
 		$query = $this->db->query("SELECT username FROM {$this->tablepre}members WHERE username = '$username'");
 		if($this->db->num_rows($query)) {

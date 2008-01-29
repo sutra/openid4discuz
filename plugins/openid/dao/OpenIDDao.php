@@ -11,6 +11,13 @@
  */
 interface OpenIDDao {
 	/**
+	 * Get user id by openid identifer.
+	 * 
+	 * @access public
+	 */
+	public function getUserIDByOpenID($openid_identifier);
+
+	/**
 	 * Is username exists.
 	 * @access public
 	 */

@@ -4,7 +4,7 @@
  * @copyright Copyright &copy; 2001-2007, Redv Soft
  * @license http://openid4discuz.redv.com/LICENSE.txt BSD
  */
-require_once "common.php";
+require_once "openid4discuz_common.inc.php";
 include_once language('openid');
 session_start();
 
@@ -13,8 +13,10 @@ function handleNewOpenid($openid, $sreg) {
 
 	$handle_type = $_DPLUGIN['openid4discuz']['vars']['new_openid_handle_type'];
 	if (empty($handle_type) || $handle_type == 1) {
+		// register a new discuz account.
 		register($openid, $sreg);
 	} else {
+		// goto register manually or bind manually.
 		gotoRegOrBind($openid, $sreg);
 	}
 }
@@ -38,9 +40,10 @@ function gotoRegOrBind($openid, $sreg) {
 }
 
 function register($openid_identifier, $sreg) {
+	global $openid4discuz;
 	global $tablepre, $db, $query, $timestamp;
 
-	$username = generateUsername(obtainNickname($openid_identifier, $sreg));
+	$username = $openid4discuz->generateUsername($openid_identifier, $sreg);
 	$plain_password = GetSID(24);
 	$password = md5($plain_password);
 	$secques = "";
@@ -88,7 +91,7 @@ function register($openid_identifier, $sreg) {
 		VALUES ('$uid', '$nickname', '$site', '$icq', '$qq', '$yahoo', '$msn', '$taobao', '$alipay', '$locationnew', '$bio', '$sightml', '$cstatus', '$authstr', '$avatar', '$avatarwidth', '$avatarheight')");
 
 	bindOpenID($uid, $openid_identifier);
-	
+
 	// Set login.
 	setLogin($uid);
 }
@@ -136,22 +139,15 @@ function setLogin($uid) {
 	}
 }
 
-function runDiscuz($openid, $sreg) {
-	global $tablepre, $query, $db, $_DCACHE, $_DCOOKIE;
-
-	global $discuz_uid, $discuz_user, $discuz_pw, $discuz_secques, $adminid, $groupid, $styleidmem, 
-		$lastvisit, $lastpost, $allowinvisible;
-	global $discuz_userss;
-
-	$query = $db->query("SELECT uid, openid_url FROM {$tablepre}openid WHERE openid_url='".$openid."'");
-	$member_openid = $db->fetch_array($query);
-	if (!$member_openid['uid']) {
-		handleNewOpenid($openid, $sreg);
-	} else {
-		$uid = $member_openid['uid'];
-
-		// Set login
+function runDiscuz($openid_identifier, $sreg) {
+	global $openid4discuz;
+	$uid = $openid4discuz->getUserIDByOpenID($openid_identifier);
+	if ($uid) {
+		// if the openid found in database, set login.
 		setLogin($uid);
+	} else {
+		// if not found, handle new openid.
+		handleNewOpenid($openid_identifier, $sreg);
 	}
 }
 
