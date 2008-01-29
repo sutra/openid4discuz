@@ -90,7 +90,7 @@ function register($openid_identifier, $sreg) {
 	$db->query("INSERT INTO {$tablepre}memberfields (uid, nickname, site, icq, qq, yahoo, msn, taobao, alipay, location, bio, sightml, customstatus, authstr, avatar, avatarwidth, avatarheight)
 		VALUES ('$uid', '$nickname', '$site', '$icq', '$qq', '$yahoo', '$msn', '$taobao', '$alipay', '$locationnew', '$bio', '$sightml', '$cstatus', '$authstr', '$avatar', '$avatarwidth', '$avatarheight')");
 
-	bindOpenID($uid, $openid_identifier);
+	$openid4discuz->bindOpenID($uid, $openid_identifier);
 
 	// Set login.
 	setLogin($uid);

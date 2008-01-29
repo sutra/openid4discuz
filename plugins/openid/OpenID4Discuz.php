@@ -53,6 +53,10 @@ class OpenID4Discuz {
 		}	
 	}
 
+	public function bindOpenID($uid, $openid_identifier) {
+		$this->openidDao->bindOpenID($uid, $openid_identifier);
+	}
+
 	/**
 	 * Generate username.
 	 * 
