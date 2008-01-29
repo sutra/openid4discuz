@@ -5,14 +5,12 @@
  * @license http://openid4discuz.redv.com/LICENSE.txt BSD
  */
 include_once language('openid_setting');
-require_once 'common.php';
 
 if (!$discuz_uid) {
 	showmessage($GLOBALS['language']['openid_login_first'], 'logging.php?action=login');
 }
 
-require_once DISCUZ_ROOT . './plugins/openid/openid.func.php';
-require_once DISCUZ_ROOT . './plugins/openid/class.openid.php';
+require_once DISCUZ_ROOT . './plugins/openid/openid4discuz_common.inc.php';
 
 $this_url = 'plugin.php?identifier=openid4discuz&module=openid_setting';
 
